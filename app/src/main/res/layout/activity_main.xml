@@ -54,4 +54,15 @@
         android:layout_alignRight="@+id/checkInButton"
         android:layout_alignEnd="@+id/checkInButton"
         android:onClick="replyClick" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/button"
+        android:layout_below="@+id/scheduleButton"
+        android:layout_toRightOf="@+id/importButton"
+        android:layout_toEndOf="@+id/importButton"
+        android:layout_marginTop="49dp"
+        android:onClick="click2" />
 </RelativeLayout>
