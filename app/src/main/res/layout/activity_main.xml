@@ -9,8 +9,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="tw.com.pcschool.instantreplysystem_10.MainActivity">
 
-    <TextView
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/importButton"
+        android:src="@android:drawable/stat_sys_download"
+        android:layout_marginLeft="69dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="importClick" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkInButton"
+        android:layout_marginLeft="66dp"
+        android:layout_marginStart="66dp"
+        android:src="@android:drawable/ic_dialog_map"
+        android:layout_alignBottom="@+id/importButton"
+        android:layout_toRightOf="@+id/scheduleButton"
+        android:layout_toEndOf="@+id/scheduleButton"
+        android:onClick="checkInClick" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scheduleButton"
+        android:layout_below="@+id/checkInButton"
+        android:layout_alignLeft="@+id/importButton"
+        android:layout_alignStart="@+id/importButton"
+        android:layout_marginTop="134dp"
+        android:src="@android:drawable/ic_menu_today"
+        android:onClick="scheduleClick" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/replyButton"
+        android:src="@android:drawable/stat_notify_chat"
+        android:layout_alignBottom="@+id/scheduleButton"
+        android:layout_alignRight="@+id/checkInButton"
+        android:layout_alignEnd="@+id/checkInButton"
+        android:onClick="replyClick" />
 </RelativeLayout>

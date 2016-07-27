@@ -15,6 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ImportActivity" />
+        <activity android:name=".ReplyActivity" />
+        <activity android:name=".CheckInActivity" />
+        <activity android:name=".ScheduleActivity"></activity>
     </application>
 
 </manifest>
