@@ -35,6 +35,8 @@
         <EditText
             android:layout_width="0dip"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
             android:layout_weight="1" />
     </LinearLayout>
 
