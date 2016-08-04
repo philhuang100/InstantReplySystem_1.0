@@ -31,10 +31,10 @@ import java.io.FileOutputStream;
 public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db=null;
     String CREATE_TABLE1="CREATE TABLE if not exists notice_tb"+
-            "(id INTEGER PRIMARY KEY autoincrement,"+
+            "(_id INTEGER PRIMARY KEY autoincrement,"+
             "TaskNo TEXT,ShopName TEXT,Addr TEXT,ContactPerson TEXT,Tel TEXT,Remark TEXT)";
     String CREATE_TABLE2="CREATE TABLE if not exists reply_tb"+
-            "(id INTEGER PRIMARY KEY autoincrement,"+
+            "(_id INTEGER PRIMARY KEY autoincrement,"+
             "TaskNo TEXT,ArrivalTime TEXT,CompTime TEXT,Coordinate TEXT,isCompl TEXT,Remark TEXT"+
             "SN TEXT,Signature TEXT)";
     @Override
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
        // setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_my_dialog);
         //DB
-        db=openOrCreateDatabase("irs.db",0,null);
+        db=openOrCreateDatabase("irs4.db",0,null);
         db.execSQL(CREATE_TABLE1);db.execSQL(CREATE_TABLE2);
         //DB
         // 取得自定义View
