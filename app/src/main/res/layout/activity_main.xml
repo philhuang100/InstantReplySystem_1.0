@@ -10,59 +10,97 @@
     tools:context="tw.com.pcschool.instantreplysystem_10.MainActivity">
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/importButton"
-        android:src="@android:drawable/stat_sys_download"
-        android:layout_marginLeft="69dp"
-        android:layout_marginStart="69dp"
-        android:layout_marginTop="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="importClick" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:id="@+id/checkInButton"
-        android:layout_marginLeft="66dp"
-        android:layout_marginStart="66dp"
-        android:src="@android:drawable/ic_dialog_map"
-        android:layout_alignBottom="@+id/importButton"
-        android:layout_toRightOf="@+id/scheduleButton"
-        android:layout_toEndOf="@+id/scheduleButton"
-        android:onClick="checkInClick" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scheduleButton"
-        android:layout_below="@+id/checkInButton"
-        android:layout_alignLeft="@+id/importButton"
-        android:layout_alignStart="@+id/importButton"
-        android:layout_marginTop="134dp"
-        android:src="@android:drawable/ic_menu_today"
-        android:onClick="scheduleClick" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/replyButton"
-        android:src="@android:drawable/stat_notify_chat"
-        android:layout_alignBottom="@+id/scheduleButton"
-        android:layout_alignRight="@+id/checkInButton"
-        android:layout_alignEnd="@+id/checkInButton"
-        android:onClick="replyClick" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
-        android:layout_below="@+id/scheduleButton"
+        android:src="@drawable/check_in_1"
+        android:onClick="checkInClick"
+        android:scaleType="fitXY"
+        android:background="#00000000"
+        android:layout_alignTop="@+id/importButton"
         android:layout_toRightOf="@+id/importButton"
         android:layout_toEndOf="@+id/importButton"
-        android:layout_marginTop="49dp"
-        android:onClick="click2" />
+        android:layout_marginLeft="73dp"
+        android:layout_marginStart="73dp" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/importButton"
+        android:src="@drawable/import_1"
+        android:onClick="importClick"
+        android:scaleType="fitStart"
+        android:background="#00000000"
+        android:layout_marginTop="123dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/scheduleButton"
+        android:layout_alignStart="@+id/scheduleButton" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/scheduleButton"
+        android:src="@drawable/schedule_1"
+        android:onClick="scheduleClick"
+        android:scaleType="fitXY"
+        android:background="#00000000"
+        android:layout_marginLeft="43dp"
+        android:layout_marginStart="43dp"
+        android:layout_above="@+id/textView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/replyButton"
+        android:src="@drawable/reply_1"
+        android:onClick="replyClick"
+        android:scaleType="fitXY"
+        android:background="#00000000"
+        android:layout_marginTop="104dp"
+        android:layout_below="@+id/checkInButton"
+        android:layout_alignLeft="@+id/checkInButton"
+        android:layout_alignStart="@+id/checkInButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="派工匯入"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/importButton"
+        android:layout_alignLeft="@+id/importButton"
+        android:layout_alignStart="@+id/importButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="打卡定位"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/checkInButton"
+        android:layout_alignLeft="@+id/checkInButton"
+        android:layout_alignStart="@+id/checkInButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="排程規劃"
+        android:id="@+id/textView6"
+        android:layout_alignTop="@+id/textView7"
+        android:layout_alignLeft="@+id/scheduleButton"
+        android:layout_alignStart="@+id/scheduleButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="結案回報"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/replyButton"
+        android:layout_alignLeft="@+id/replyButton"
+        android:layout_alignStart="@+id/replyButton" />
+
 </RelativeLayout>

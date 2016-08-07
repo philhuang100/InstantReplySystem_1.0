@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL(CREATE_TABLE1);db.execSQL(CREATE_TABLE2);
         //DB
         // 取得自定义View
+      /*帳密
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View myLoginView = layoutInflater.inflate(R.layout.activity_my_dialog, null);
 
@@ -70,35 +71,16 @@ public class MainActivity extends AppCompatActivity {
                         }).
                         create();
         alertDialog.show();
-        setContentView(R.layout.activity_main);
-
-    }
-
-    public void importClick(View v)
-    {
-        FileOutputStream out = null;
-        try {
-            //在 getFilesDir() 目錄底下建立 test.txt 檔案用來進行寫入
-            out = openFileOutput("test.txt", Context.MODE_PRIVATE);
-
-            //將資料寫入檔案中
-            out.write("Hello! 大家好\n".getBytes());
-            out.flush();
-        } catch (Exception e) {
-            ;
-        } finally {
-            try {
-                out.close();
-            } catch (Exception e) {
-                ;
-            }
-        }
-
-        FileInputStream in = null;
+        帳密*/
+        //start 郵件郵件轉入
+        Intent it = this.getIntent();
+        Bundle bundle = it.getExtras();
+        //String Data = bundle.getString("test.txt");
+        FileInputStream in = bundle.getString("test.txt");
         StringBuffer data = new StringBuffer();
         try {
             //開啟 getFilesDir() 目錄底下名稱為 test.txt 檔案
-            in = openFileInput("test.txt");
+            in = openFileInput("test1.txt");
 
             //讀取該檔案的內容
             BufferedReader reader = new BufferedReader(
@@ -117,6 +99,54 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         Toast.makeText(MainActivity.this,data, Toast.LENGTH_SHORT).show();
+       //end 郵件郵件轉入
+      setContentView(R.layout.activity_main);
+
+    }
+
+    public void importClick(View v)
+    {
+        FileOutputStream out = null;
+        try {
+            //在 getFilesDir() 目錄底下建立 test.txt 檔案用來進行寫入
+            out = openFileOutput("test1.txt", Context.MODE_PRIVATE);
+
+            //將資料寫入檔案中
+            out.write("Hello! 大家好\n".getBytes());
+            out.flush();
+        } catch (Exception e) {
+            ;
+        } finally {
+            try {
+                out.close();
+            } catch (Exception e) {
+                ;
+            }
+        }
+
+        FileInputStream in = null;
+        StringBuffer data = new StringBuffer();
+        try {
+            //開啟 getFilesDir() 目錄底下名稱為 test.txt 檔案
+            in = openFileInput("test1.txt");
+
+            //讀取該檔案的內容
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(in, "utf-8"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                data.append(line);
+            }
+        } catch (Exception e) {
+            ;
+        } finally {
+            try {
+                in.close();
+            } catch (Exception e) {
+                ;
+            }
+        }
+       // Toast.makeText(MainActivity.this,data, Toast.LENGTH_SHORT).show();
 
         // Intent it = new Intent(MainActivity.this, ImportActivity.class);
        // startActivity(it);
