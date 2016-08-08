@@ -73,32 +73,11 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
         帳密*/
         //start 郵件郵件轉入
-        Intent it = this.getIntent();
-        Bundle bundle = it.getExtras();
-        //String Data = bundle.getString("test.txt");
-        FileInputStream in = bundle.getString("test.txt");
-        StringBuffer data = new StringBuffer();
-        try {
-            //開啟 getFilesDir() 目錄底下名稱為 test.txt 檔案
-            in = openFileInput("test1.txt");
-
-            //讀取該檔案的內容
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(in, "utf-8"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                data.append(line);
-            }
-        } catch (Exception e) {
-            ;
-        } finally {
-            try {
-                in.close();
-            } catch (Exception e) {
-                ;
-            }
+        if(getIntent()!=null && getIntent().getExtras()!=null){
+            Bundle bundle = getIntent().getExtras();
+            String name = bundle.getString("name");
+           Toast.makeText(MainActivity.this,txt, Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(MainActivity.this,data, Toast.LENGTH_SHORT).show();
        //end 郵件郵件轉入
       setContentView(R.layout.activity_main);
 
