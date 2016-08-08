@@ -73,12 +73,18 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
         帳密*/
         //start 郵件郵件轉入
-        if(getIntent()!=null && getIntent().getExtras()!=null){
+       /* if(getIntent()!=null && getIntent().getExtras()!=null){
             Bundle bundle = getIntent().getExtras();
             String name = bundle.getString("name");
            Toast.makeText(MainActivity.this,txt, Toast.LENGTH_SHORT).show();
-        }
-       //end 郵件郵件轉入
+        }*/
+      Intent intent = getIntent();
+      if (intent.getAction().equals(Intent.ACTION_SEND)) {
+         Toast.makeText(MainActivity.this,intent.getStringExtra(Intent.EXTRA_TEXT), Toast.LENGTH_SHORT).show();
+       }
+
+
+        //end 郵件郵件轉入
       setContentView(R.layout.activity_main);
 
     }
