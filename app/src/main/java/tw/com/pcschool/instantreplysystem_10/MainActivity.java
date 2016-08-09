@@ -6,12 +6,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,22 +37,29 @@ import java.util.Map;
 import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity {
-    SQLiteDatabase db=null;
-    String CREATE_TABLE1="CREATE TABLE if not exists notice_tb"+
-            "(_id INTEGER PRIMARY KEY autoincrement,"+
-            "TaskNo TEXT,ShopName TEXT,Addr TEXT,ContactPerson TEXT,Tel TEXT,Remark TEXT)";
-    String CREATE_TABLE2="CREATE TABLE if not exists reply_tb"+
-            "(_id INTEGER PRIMARY KEY autoincrement,"+
-            "TaskNo TEXT,ArrivalTime TEXT,CompTime TEXT,Coordinate TEXT,isCompl TEXT,Remark TEXT"+
-            "SN TEXT,Signature TEXT)";
+    SQLiteDatabase db = null;
+    String CREATE_TABLE1 = "CREATE TABLE if not exists notice_tb" +
+            "(_id INTEGER PRIMARY KEY autoincrement," +
+            "TaskNo TEXT,ShopName TEXT,Addr TEXT,ContactPerson TEXT,Tel TEXT,Remark TEXT,ImpDate TEXT)";
+    String CREATE_TABLE2 = "CREATE TABLE if not exists reply_tb" +
+            "(_id INTEGER PRIMARY KEY autoincrement," +
+            "TaskNo TEXT,ArrivalTime TEXT,CompTime TEXT,Coordinate TEXT,isCompl TEXT,Remark TEXT" +
+            "SN TEXT,Signature TEXT,ExpDate TEXT)";
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_main);
+        // setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_my_dialog);
         //DB
-        db=openOrCreateDatabase("irs4.db",0,null);
-        db.execSQL(CREATE_TABLE1);db.execSQL(CREATE_TABLE2);
+        db = openOrCreateDatabase("irs_db.db", 0, null);
+        db.execSQL(CREATE_TABLE1);
+        db.execSQL(CREATE_TABLE2);
         //DB
         // 取得自定义View
       /*帳密
@@ -78,19 +93,26 @@ public class MainActivity extends AppCompatActivity {
             String name = bundle.getString("name");
            Toast.makeText(MainActivity.this,txt, Toast.LENGTH_SHORT).show();
         }*/
-      Intent intent = getIntent();
-      if (intent.getAction().equals(Intent.ACTION_SEND)) {
-         Toast.makeText(MainActivity.this,intent.getStringExtra(Intent.EXTRA_TEXT), Toast.LENGTH_SHORT).show();
-       }
+        Intent it = getIntent();
+        if (it.getAction().equals(Intent.ACTION_VIEW)) {
+            //if(it!=null ){
+            String str = it.getData().toString();
+            //String str = it.getStringExtra(Intent.EXTRA_TEXT);
+            //Toast.makeText(MainActivity.this,it.getStringExtra(Intent.EXTRA_TEXT), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(MainActivity.this,str, Toast.LENGTH_SHORT).show();
+            // TextView tv = (TextView) findViewById(R.id.textView8);
+            // tv.setText(str);
+            Log.d("INTENT", str);
+        }
 
 
         //end 郵件郵件轉入
-      setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
+
 
     }
 
-    public void importClick(View v)
-    {
+    public void importClick(View v) {
         FileOutputStream out = null;
         try {
             //在 getFilesDir() 目錄底下建立 test.txt 檔案用來進行寫入
@@ -131,28 +153,28 @@ public class MainActivity extends AppCompatActivity {
                 ;
             }
         }
-       // Toast.makeText(MainActivity.this,data, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(MainActivity.this,data, Toast.LENGTH_SHORT).show();
 
         // Intent it = new Intent(MainActivity.this, ImportActivity.class);
-       // startActivity(it);
+        // startActivity(it);
     }
-    public void checkInClick(View v)
-    {
+
+    public void checkInClick(View v) {
         Intent it = new Intent(MainActivity.this, CheckInActivity.class);
         startActivity(it);
     }
-    public void replyClick(View v)
-    {
+
+    public void replyClick(View v) {
         Intent it = new Intent(MainActivity.this, ReplyActivity.class);
         startActivity(it);
     }
-    public void scheduleClick(View v)
-    {
+
+    public void scheduleClick(View v) {
         Intent it = new Intent(MainActivity.this, ScheduleActivity.class);
         startActivity(it);
     }
-    public void click2(View v)
-    {
+
+    public void click2(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("登入訊息");
         builder.setMessage("帳號");
@@ -178,4 +200,5 @@ public class MainActivity extends AppCompatActivity {
 
         builder.create().show();
     }
+
 }

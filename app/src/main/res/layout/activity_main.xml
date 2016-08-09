@@ -103,4 +103,14 @@
         android:layout_alignLeft="@+id/replyButton"
         android:layout_alignStart="@+id/replyButton" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView8"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_alignEnd="@+id/textView5" />
+
 </RelativeLayout>

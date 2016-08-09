@@ -20,7 +20,7 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
         ListView lv1 = (ListView) findViewById(R.id.listView);
-        SQLiteDatabase db = openOrCreateDatabase("irs4.db", MODE_PRIVATE, null);
+        SQLiteDatabase db = openOrCreateDatabase("irs_db.db", MODE_PRIVATE, null);
         Cursor cursor = db.rawQuery("select _id,Addr, Tel from notice_tb",null);
         if (cursor != null && cursor.getCount() >= 0) {
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, new String[]{"Addr", "Tel"}, new int[]{android.R.id.text1, android.R.id.text2}, 0);
