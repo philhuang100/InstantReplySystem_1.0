@@ -28,7 +28,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,21 +90,39 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
         帳密*/
         //start 郵件郵件轉入
-       /* if(getIntent()!=null && getIntent().getExtras()!=null){
-            Bundle bundle = getIntent().getExtras();
-            String name = bundle.getString("name");
-           Toast.makeText(MainActivity.this,txt, Toast.LENGTH_SHORT).show();
-        }*/
-        Intent it = getIntent();
-        if (it.getAction().equals(Intent.ACTION_VIEW)) {
-            //if(it!=null ){
-            String str = it.getData().toString();
-            //String str = it.getStringExtra(Intent.EXTRA_TEXT);
-            //Toast.makeText(MainActivity.this,it.getStringExtra(Intent.EXTRA_TEXT), Toast.LENGTH_SHORT).show();
-            // Toast.makeText(MainActivity.this,str, Toast.LENGTH_SHORT).show();
-            // TextView tv = (TextView) findViewById(R.id.textView8);
-            // tv.setText(str);
-            Log.d("INTENT", str);
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        if(Intent.ACTION_VIEW.equals(action)) {
+            try {
+                InputStream in = getContentResolver().openInputStream(getIntent().getData());
+                BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                StringBuffer buffer = new StringBuffer();
+                String line="" ;
+                String TaskNo="", ShopName="",Addr="",Tel="",ContactPerson="",Remark="",ImpDate;
+                while ((line = br.readLine()) != null){
+                    //buffer.append(line);
+                    TaskNo=line.substring(0,10);
+                   // ShopName=line.substring(10,50);
+                   // Addr=line.substring(60,50);
+                   // ContactPerson=line.substring(110,20);
+                   // Tel=line.substring(130,20);
+                   // Remark=line.substring(150,100);
+
+                    //db.execSQL("insert into notice_tb(ShopNmae,Addr) values("+shopname+","+addr+")");
+                   Log.d("TASKNO", TaskNo);
+                 //   Log.d("ShopName", ShopName);
+                 //   Log.d("Addr", Addr);
+                  //  Log.d("ContactPerson", ContactPerson);
+                  //  Log.d("Tel", Tel);
+                  //  Log.d("Remark", Remark);
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
 
