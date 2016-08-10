@@ -99,33 +99,45 @@ public class MainActivity extends AppCompatActivity {
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
                 StringBuffer buffer = new StringBuffer();
                 String line="" ;
-                String TaskNo="", ShopName="",Addr="",Tel="",ContactPerson="",Remark="",ImpDate;
+                String TaskNo="", ShopName="",Addr="",Tel="",ContactPerson="",Remark="",ImpDate="";
+                int flag_1=1;
                 while ((line = br.readLine()) != null){
                     //====================
-                    ArrayList<String> ticketStr = new ArrayList<String>();
-                    String item[] = line.split(",");//csv文件為依據逗號切割
-                    //清除上一次存入的資料
-                    ticketStr.clear();
-                    //讀檔(單列資料)
-                    for(int i=0; i<item.length; i++){
-                        ticketStr.add(i, item[i]);
-//                      Log.d("ShopName", ticketStr);
-                    }
+                                    ArrayList<String> ticketStr = new ArrayList<String>();
+                                      String item[] = line.split(",");//csv文件為依據逗號切割
+                                  //清除上一次存入的資料
+                               ticketStr.clear();
+                              //讀檔(單列資料)
+                                for(int i=0; i<item.length; i++){
+                                    ticketStr.add(i, item[i]);
+                                  Log.d("ShopName", ticketStr.toString());
+                            }
 
-                    //===============
+                    //===============/
                     //buffer.append(line);
-                  //  TaskNo=line.substring(0,10);
-                   // ShopName=line.substring(10,50);
-                   // Addr=line.substring(60,50);
-                   // ContactPerson=line.substring(110,20);
-                   // Tel=line.substring(130,20);
-                   // Remark=line.substring(150,100);
+             /*  if(flag_1!=1) {
 
-                    //db.execSQL("insert into notice_tb(ShopNmae,Addr) values("+shopname+","+addr+")");
-                   //Log.d("TASKNO", TaskNo);
-                   // Log.d("ShopName", ShopName);
+                  TaskNo = line.substring(0,10);
+                   ShopName=line.substring(10,50);
+                   Addr=line.substring(50,100);
+                //   ContactPerson=line.substring(99,130);
+              ///   Tel=line.substring(130,150);
+               //    Remark=line.substring(150,250);
+              }else{
+                  TaskNo=line.substring(0,11);
+                  ShopName=line.substring(11,50);
+                  Addr=line.substring(62,112);
+                  // ContactPerson=line.substring(100,120);
+                //   Tel=line.substring(120,140);
+                 //  Remark=line.substring(140,240);
+                      flag_1=0;
+                  }*/
+            //   db.execSQL("insert into notice_tb values("+TaskNo+","+ShopName+","+Addr+","+ContactPerson+
+             //             ","+Tel+","+Remark+",GETDATE())");
+                //  Log.d("TASKNO", TaskNo);
+                 //  Log.d("ShopName", ShopName);
                  //   Log.d("Addr", Addr);
-                  //  Log.d("ContactPerson", ContactPerson);
+                   // Log.d("ContactPerson", ContactPerson);
                   //  Log.d("Tel", Tel);
                   //  Log.d("Remark", Remark);
                 }
