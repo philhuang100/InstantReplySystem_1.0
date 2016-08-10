@@ -101,8 +101,20 @@ public class MainActivity extends AppCompatActivity {
                 String line="" ;
                 String TaskNo="", ShopName="",Addr="",Tel="",ContactPerson="",Remark="",ImpDate;
                 while ((line = br.readLine()) != null){
+                    //====================
+                    ArrayList<String> ticketStr = new ArrayList<String>();
+                    String item[] = line.split(",");//csv文件為依據逗號切割
+                    //清除上一次存入的資料
+                    ticketStr.clear();
+                    //讀檔(單列資料)
+                    for(int i=0; i<item.length; i++){
+                        ticketStr.add(i, item[i]);
+//                      Log.d("ShopName", ticketStr);
+                    }
+
+                    //===============
                     //buffer.append(line);
-                    TaskNo=line.substring(0,10);
+                  //  TaskNo=line.substring(0,10);
                    // ShopName=line.substring(10,50);
                    // Addr=line.substring(60,50);
                    // ContactPerson=line.substring(110,20);
@@ -110,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
                    // Remark=line.substring(150,100);
 
                     //db.execSQL("insert into notice_tb(ShopNmae,Addr) values("+shopname+","+addr+")");
-                   Log.d("TASKNO", TaskNo);
-                 //   Log.d("ShopName", ShopName);
+                   //Log.d("TASKNO", TaskNo);
+                   // Log.d("ShopName", ShopName);
                  //   Log.d("Addr", Addr);
                   //  Log.d("ContactPerson", ContactPerson);
                   //  Log.d("Tel", Tel);
