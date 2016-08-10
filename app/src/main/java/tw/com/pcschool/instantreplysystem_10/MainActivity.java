@@ -103,15 +103,32 @@ public class MainActivity extends AppCompatActivity {
                 int flag_1=1;
                 while ((line = br.readLine()) != null){
                     //====================
-                                    ArrayList<String> ticketStr = new ArrayList<String>();
+                                   //ArrayList<String> ticketStr = new ArrayList<String>();
                                       String item[] = line.split(",");//csv文件為依據逗號切割
                                   //清除上一次存入的資料
-                               ticketStr.clear();
+                               //ticketStr.clear();
                               //讀檔(單列資料)
-                                for(int i=0; i<item.length; i++){
+                    //db.execSQL("insert into notice_tb values("+item[0]+","+item[1]+","+item[2]+","+item[3]+
+                         //   ","+item[4]+","+item[5]+",GETDATE())");
+                    db.execSQL("insert into notice_tb(TaskNo) values("+item[0]+")");
+                    /*
+                              TaskNo = item[0];
+                              ShopName=item[1];
+                              Addr=item[2];
+                              ContactPerson=item[3];
+                              Tel=item[4];
+                              Remark=item[5];
+*/
+                              Log.d("ShopName", item[0]);
+                    Log.d("ShopName", item[1]);
+                    Log.d("ShopName", item[2]);
+                    Log.d("ShopName", item[3]);
+                    Log.d("ShopName", item[4]);
+                    Log.d("ShopName", item[5]);
+
+                               /* for(int i=0; i<item.length; i++){
                                     ticketStr.add(i, item[i]);
-                                  Log.d("ShopName", ticketStr.toString());
-                            }
+                                }*/
 
                     //===============/
                     //buffer.append(line);
@@ -133,7 +150,8 @@ public class MainActivity extends AppCompatActivity {
                       flag_1=0;
                   }*/
             //   db.execSQL("insert into notice_tb values("+TaskNo+","+ShopName+","+Addr+","+ContactPerson+
-             //             ","+Tel+","+Remark+",GETDATE())");
+                //         ","+Tel+","+Remark+",GETDATE())");
+
                 //  Log.d("TASKNO", TaskNo);
                  //  Log.d("ShopName", ShopName);
                  //   Log.d("Addr", Addr);

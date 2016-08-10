@@ -20,8 +20,8 @@
                 <intent-filter>
                     <action android:name="android.intent.action.VIEW" />
                     <category android:name="android.intent.category.DEFAULT" />
-                    <!--data android:mimeType="text/plain" /-->
-                    <data android:mimeType="text/comma_separated_values/csv" />
+                    <data android:mimeType="text/plain" />
+                    <data android:mimeType="text/csv" />
                 </intent-filter>
                 <!--
             <action android:name="android.intent.action.VIEW" />
