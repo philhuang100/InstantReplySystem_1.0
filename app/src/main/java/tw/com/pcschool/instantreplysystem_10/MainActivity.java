@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL(CREATE_TABLE2);
         //DB
         // 取得自定义View
-      /*帳密
+      //帳密
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View myLoginView = layoutInflater.inflate(R.layout.activity_my_dialog, null);
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         }).
                         create();
         alertDialog.show();
-        帳密*/
+       // 帳密*/
         //start 郵件郵件轉入
         Intent intent = getIntent();
         String action = intent.getAction();
