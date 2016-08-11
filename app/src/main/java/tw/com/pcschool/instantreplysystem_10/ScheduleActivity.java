@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
 
 import com.google.android.gms.appindexing.Action;
@@ -20,11 +21,13 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
         ListView lv1 = (ListView) findViewById(R.id.listView);
-        SQLiteDatabase db = openOrCreateDatabase("irs_db.db", MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("select _id,ShopName,Addr, Tel from notice_tb",null);
+        SQLiteDatabase db = openOrCreateDatabase("irs_db2.db", MODE_PRIVATE, null);
+        Cursor cursor = db.rawQuery("select Addr,ShopName,ContactPerson,Tel from notice_tb",null);
         if (cursor != null && cursor.getCount() >= 0) {
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, new String[]{"ShopName", "Addr"}, new int[]{android.R.id.text1, android.R.id.text2}, 0);
             lv1.setAdapter(adapter);
+            //==============================
+            //===============================
 
         }
 
