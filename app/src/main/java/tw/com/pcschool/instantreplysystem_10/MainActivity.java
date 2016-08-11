@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkInClick(View v) {
-        Intent it = new Intent(MainActivity.this, CheckInMapsActivity.class);
+        Intent it = new Intent(MainActivity.this, CheckInActivity.class);
         startActivity(it);
     }
 
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void scheduleClick(View v) {
-        Intent it = new Intent(MainActivity.this, ScheduleActivity.class);
+        Intent it = new Intent(MainActivity.this, ScheduleBActivity.class);
         startActivity(it);
     }
 
