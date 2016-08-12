@@ -20,7 +20,7 @@ public class ScheduleBActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_b);
         SQLiteDatabase db = openOrCreateDatabase("irs_db11.db", MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("select _id,ShopName,Addr,ContactPerson,Tel,Remark,TaskNo from notice_tb",null);
+        Cursor cursor = db.rawQuery("select _id,ShopName,Addr,Tel,ContactPerson,Remark,TaskNo from notice_tb",null);
         mylist = new ArrayList<>();
         for(int i = 0 ; i < cursor.getCount() ; i++ )
         {
@@ -32,7 +32,7 @@ public class ScheduleBActivity extends AppCompatActivity {
             String Tel = cursor.getString(cursor.getColumnIndex("Tel"));
             String Remark = cursor.getString(cursor.getColumnIndex("Remark"));
             String TaskNo = cursor.getString(cursor.getColumnIndex("TaskNo"));
-            mylist.add(new SQLiteDB(ShopName.trim(), Addr, ContactPerson,Tel,Remark,TaskNo));
+            mylist.add(new SQLiteDB(ShopName, Addr,Tel, ContactPerson,Remark,TaskNo));
         }
               // if (cursor != null && cursor.getCount() >= 0) {
         lv3 = (ListView) findViewById(R.id.listView3);

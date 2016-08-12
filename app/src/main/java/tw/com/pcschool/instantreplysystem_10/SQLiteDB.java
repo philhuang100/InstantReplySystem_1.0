@@ -14,8 +14,8 @@ public class SQLiteDB {
         {
             ShopName=a;
             Addr=b;
-            ContactPerson=c;
-            Tel=d;
+            Tel=c;
+            ContactPerson=d;
             Remark=e;
             TaskNo=f;
         }

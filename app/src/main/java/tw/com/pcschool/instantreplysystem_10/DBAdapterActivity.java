@@ -70,9 +70,9 @@ public class DBAdapterActivity extends BaseAdapter {
         }
 
         holder.tv1.setText(data.get(position).ShopName);
-        holder.tv4.setText(data.get(position).Addr);
-        //holder.tv3.setText(data.get(position).ContactPerson);
         holder.tv2.setText(data.get(position).Tel);
+        //holder.tv3.setText(data.get(position).ContactPerson);
+        holder.tv4.setText(data.get(position).Addr);
         holder.btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

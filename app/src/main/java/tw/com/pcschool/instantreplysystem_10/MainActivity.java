@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL(CREATE_TABLE2);
         //DB
         // 取得自定义View
-      //帳密
+      /*/帳密
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View myLoginView = layoutInflater.inflate(R.layout.activity_my_dialog, null);
 
