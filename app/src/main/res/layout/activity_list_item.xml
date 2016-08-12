@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_horizontal_margin"
     tools:context="tw.com.pcschool.instantreplysystem_10.DetailActivity"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="#98f8e0">
 
 
 

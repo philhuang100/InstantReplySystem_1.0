@@ -32,7 +32,7 @@ public class ReplyActivity extends AppCompatActivity {
         if (cb.isChecked() == true)
             ckComp = "Y";
         db = openOrCreateDatabase("irs_db11.db", 0, null);
-        Cursor cursor = db.rawQuery("select  notice_tb.TaskNo,ShopName,ArrivalTime,Coordinate " +
+        Cursor cursor = db.rawQuery("select  notice_tb.TaskNo,ShopName,ArrivalTime,Coordinate,Addr " +
                 "from notice_tb,reply_tb " +
                 "where notice_tb.TaskNo=reply_tb.TaskNo " +
                 "and (CompTime='' or CompTime is NULL) order by notice_tb._id ", null);
@@ -41,6 +41,9 @@ public class ReplyActivity extends AppCompatActivity {
         et_taskno.setText(cursor.getString(cursor.getColumnIndex("TaskNo")));
         TextView et_shopname=  (TextView) findViewById(R.id.R_ShopName);
         et_shopname.setText(cursor.getString(cursor.getColumnIndex("ShopName")));
+        TextView et_addr=  (TextView) findViewById(R.id.R_Addr);
+        et_addr.setText(cursor.getString(cursor.getColumnIndex("Addr")));
+
         TextView et_comptime=  (TextView) findViewById(R.id.R_CompTime);
         SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         comptime = sDateFormat.format(new java.util.Date());

@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="tw.com.pcschool.instantreplysystem_10.ReplyActivity">
+    tools:context="tw.com.pcschool.instantreplysystem_10.ReplyActivity"
+    android:background="#98f8e0">
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,9 +26,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/R_ShopName"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/R_TaskNo"
-        android:layout_toEndOf="@+id/R_TaskNo" />
+        android:layout_above="@+id/R_Addr"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,19 +36,20 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="到場時間"
         android:id="@+id/textView18"
-        android:layout_below="@+id/R_TaskNo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/textView20"
+        android:layout_toLeftOf="@+id/R_isComp"
+        android:layout_toStartOf="@+id/R_isComp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
         android:id="@+id/R_ArrivalTime"
-        android:layout_below="@+id/R_ShopName"
-        android:layout_toRightOf="@+id/R_TaskNo"
-        android:layout_toEndOf="@+id/R_TaskNo" />
+        android:layout_above="@+id/R_CompTime"
+        android:layout_alignLeft="@+id/R_CompTime"
+        android:layout_alignStart="@+id/R_CompTime"
+        android:layout_alignRight="@+id/R_CompTime"
+        android:layout_alignEnd="@+id/R_CompTime" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,7 +57,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="完成時間"
         android:id="@+id/textView20"
-        android:layout_below="@+id/textView18"
+        android:layout_alignTop="@+id/R_CompTime"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -63,11 +65,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
         android:id="@+id/R_CompTime"
-        android:layout_alignTop="@+id/textView20"
-        android:layout_toRightOf="@+id/textView20"
-        android:layout_toEndOf="@+id/textView20" />
+        android:layout_marginBottom="32dp"
+        android:layout_above="@+id/R_isComp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/R_SN"
+        android:layout_alignStart="@+id/R_SN" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,7 +79,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="完成否"
         android:id="@+id/textView22"
-        android:layout_below="@+id/textView20"
+        android:layout_above="@+id/textView23"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -85,9 +89,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="異常說明"
         android:id="@+id/textView23"
+        android:layout_above="@+id/R_Remark"
         android:layout_toLeftOf="@+id/R_SN"
-        android:layout_toStartOf="@+id/R_SN"
-        android:layout_below="@+id/R_CompTime" />
+        android:layout_toStartOf="@+id/R_SN" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -95,8 +99,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="設備序號"
         android:id="@+id/textView24"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/textView23"
+        android:layout_alignBaseline="@+id/R_SN"
+        android:layout_alignBottom="@+id/R_SN"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -106,16 +110,24 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="客戶簽名"
         android:id="@+id/textView25"
-        android:layout_below="@+id/textView24"
+        android:layout_marginBottom="44dp"
+        android:layout_above="@+id/button4"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="55dp" />
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/R_isComp"
+        android:layout_above="@+id/textView23"
+        android:layout_toRightOf="@+id/textView20"
+        android:layout_toEndOf="@+id/textView20" />
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:id="@+id/R_Remark"
-        android:layout_above="@+id/textView24"
+        android:layout_above="@+id/R_SN"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -125,16 +137,17 @@
         android:layout_above="@+id/textView25"
         android:layout_alignLeft="@+id/R_Signature"
         android:layout_alignStart="@+id/R_Signature"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/R_Signature"
+        android:layout_alignEnd="@+id/R_Signature" />
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="fill_parent"
         android:id="@+id/R_Signature"
         android:layout_toRightOf="@+id/textView25"
-        android:layout_toEndOf="@+id/textView25"
         android:longClickable="true"
-        android:layout_alignTop="@+id/textView25" />
+        android:layout_alignTop="@+id/textView25"
+        android:layout_above="@+id/button4" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -152,9 +165,9 @@
         android:layout_height="wrap_content"
         android:text="簽名"
         android:id="@+id/button3"
-        android:layout_below="@+id/R_Signature"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/R_Signature"
+        android:layout_alignRight="@+id/R_Remark"
+        android:layout_alignEnd="@+id/R_Remark" />
 
     <Button
         android:layout_width="wrap_content"
@@ -166,13 +179,24 @@
         android:layout_toEndOf="@+id/textView25"
         android:onClick="end_click" />
 
-    <CheckBox
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New CheckBox"
-        android:id="@+id/R_isComp"
-        android:layout_alignTop="@+id/textView23"
-        android:layout_alignLeft="@+id/R_ArrivalTime"
-        android:layout_alignStart="@+id/R_ArrivalTime" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/R_Addr"
+        android:layout_above="@+id/textView18"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="結案回報"
+        android:id="@+id/textView10"
+        android:layout_alignTop="@+id/R_TaskNo"
+        android:layout_alignRight="@+id/R_Remark"
+        android:layout_alignEnd="@+id/R_Remark" />
 
 </RelativeLayout>
