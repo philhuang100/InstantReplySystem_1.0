@@ -19,8 +19,8 @@ public class ScheduleBActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_b);
-        SQLiteDatabase db = openOrCreateDatabase("irs_db2.db", MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("select _id,ShopName,Addr,ContactPerson,Tel from notice_tb",null);
+        SQLiteDatabase db = openOrCreateDatabase("irs_db11.db", MODE_PRIVATE, null);
+        Cursor cursor = db.rawQuery("select _id,ShopName,Addr,ContactPerson,Tel,Remark,TaskNo from notice_tb",null);
         mylist = new ArrayList<>();
         for(int i = 0 ; i < cursor.getCount() ; i++ )
         {
@@ -30,13 +30,16 @@ public class ScheduleBActivity extends AppCompatActivity {
             String Addr = cursor.getString(cursor.getColumnIndex("Addr"));
             String ContactPerson = cursor.getString(cursor.getColumnIndex("ContactPerson"));
             String Tel = cursor.getString(cursor.getColumnIndex("Tel"));
-            mylist.add(new SQLiteDB(ShopName.trim(), Addr, ContactPerson,Tel));
+            String Remark = cursor.getString(cursor.getColumnIndex("Remark"));
+            String TaskNo = cursor.getString(cursor.getColumnIndex("TaskNo"));
+            mylist.add(new SQLiteDB(ShopName.trim(), Addr, ContactPerson,Tel,Remark,TaskNo));
         }
               // if (cursor != null && cursor.getCount() >= 0) {
         lv3 = (ListView) findViewById(R.id.listView3);
         adapter = new DBAdapterActivity(ScheduleBActivity.this, mylist);
 
         lv3.setAdapter(adapter);
+        db.close();
 
         /*
         lv3.setOnItemClickListener(new AdapterView.OnItemClickListener() {

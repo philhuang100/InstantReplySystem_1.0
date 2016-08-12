@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             "TaskNo TEXT UNIQUE,ShopName TEXT,Addr TEXT,ContactPerson TEXT,Tel TEXT,Remark TEXT,ImpDate TEXT)";
     String CREATE_TABLE2 = "CREATE TABLE if not exists reply_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement," +
-            "TaskNo TEXT UNIQUE,ArrivalTime TEXT,CompTime TEXT,Coordinate TEXT,isCompl TEXT,Remark TEXT" +
+            "TaskNo TEXT UNIQUE,ArrivalTime TEXT,CompTime TEXT,Coordinate TEXT,isComp TEXT,Remark TEXT" +
             "SN TEXT,Signature TEXT,ExpDate TEXT)";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         // setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_my_dialog);
         //DB
-        db = openOrCreateDatabase("irs_db2.db", 0, null);
+        db = openOrCreateDatabase("irs_db11.db", 0, null);
         db.execSQL(CREATE_TABLE1);
         db.execSQL(CREATE_TABLE2);
         //DB
@@ -102,11 +102,15 @@ public class MainActivity extends AppCompatActivity {
                 while ((line = br.readLine()) != null){
                     //====================
                     String item[] = line.split(",");//csv文件為依據逗號切割
-                    if(flag_1!=1)
-                     db.execSQL("insert into notice_tb(TaskNo,ShopName,Addr,Tel,ContactPerson,Remark,ImpDate) values('"+
-                                 item[0]+"','"+item[1]+"','"+item[2]+"','"+item[3]+"','"+item[4]+"','"+item[5]+
+                   if(flag_1!=1){
+                      db.execSQL("insert into notice_tb(TaskNo,ShopName,Addr,Tel,ContactPerson,Remark,ImpDate) values('"+
+                                 item[0]+"','"+item[1]+"','"+item[2]+"','"+
+                                 item[3]+"','"+item[4]+"','"+item[5]+
                                 "',datetime('now','localtime'))");
-                     flag_1=0;
+                     db.execSQL("insert into reply_tb(TaskNo) values('"+ item[0]+"')");
+
+                   }
+                   flag_1=0;
                  }
 
             } catch (FileNotFoundException e) {
@@ -114,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            db.close();
         }
         //end 郵件郵件轉入
         setContentView(R.layout.activity_main);
@@ -169,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkInClick(View v) {
-        Intent it = new Intent(MainActivity.this, CheckInActivity.class);
+        Intent it = new Intent(MainActivity.this, MapsActivity.class);
         startActivity(it);
     }
 

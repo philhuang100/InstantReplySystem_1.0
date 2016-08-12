@@ -12,10 +12,167 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Reply"
-        android:id="@+id/textView3"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/R_TaskNo"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="125dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/R_ShopName"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/R_TaskNo"
+        android:layout_toEndOf="@+id/R_TaskNo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="到場時間"
+        android:id="@+id/textView18"
+        android:layout_below="@+id/R_TaskNo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/R_ArrivalTime"
+        android:layout_below="@+id/R_ShopName"
+        android:layout_toRightOf="@+id/R_TaskNo"
+        android:layout_toEndOf="@+id/R_TaskNo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="完成時間"
+        android:id="@+id/textView20"
+        android:layout_below="@+id/textView18"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/R_CompTime"
+        android:layout_alignTop="@+id/textView20"
+        android:layout_toRightOf="@+id/textView20"
+        android:layout_toEndOf="@+id/textView20" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="完成否"
+        android:id="@+id/textView22"
+        android:layout_below="@+id/textView20"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="異常說明"
+        android:id="@+id/textView23"
+        android:layout_toLeftOf="@+id/R_SN"
+        android:layout_toStartOf="@+id/R_SN"
+        android:layout_below="@+id/R_CompTime" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="設備序號"
+        android:id="@+id/textView24"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/textView23"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="客戶簽名"
+        android:id="@+id/textView25"
+        android:layout_below="@+id/textView24"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="55dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/R_Remark"
+        android:layout_above="@+id/textView24"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/R_SN"
+        android:layout_above="@+id/textView25"
+        android:layout_alignLeft="@+id/R_Signature"
+        android:layout_alignStart="@+id/R_Signature"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/R_Signature"
+        android:layout_toRightOf="@+id/textView25"
+        android:layout_toEndOf="@+id/textView25"
+        android:longClickable="true"
+        android:layout_alignTop="@+id/textView25" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="掃描"
+        android:id="@+id/button"
+        android:layout_alignTop="@+id/R_SN"
+        android:layout_alignRight="@+id/R_Remark"
+        android:layout_alignEnd="@+id/R_Remark" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="簽名"
+        android:id="@+id/button3"
+        android:layout_below="@+id/R_Signature"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="結案"
+        android:id="@+id/button4"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/textView25"
+        android:layout_toEndOf="@+id/textView25"
+        android:onClick="end_click" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New CheckBox"
+        android:id="@+id/R_isComp"
+        android:layout_alignTop="@+id/textView23"
+        android:layout_alignLeft="@+id/R_ArrivalTime"
+        android:layout_alignStart="@+id/R_ArrivalTime" />
+
 </RelativeLayout>

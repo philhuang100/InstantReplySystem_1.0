@@ -8,12 +8,16 @@ public class SQLiteDB {
         public String Addr;
         public String ContactPerson;
         public String Tel;
-        public SQLiteDB(String a, String b, String c, String d)
+        public String Remark;
+        public String TaskNo;
+        public SQLiteDB(String a, String b, String c, String d,String e,String f)
         {
             ShopName=a;
             Addr=b;
             ContactPerson=c;
             Tel=d;
+            Remark=e;
+            TaskNo=f;
         }
 
     }
