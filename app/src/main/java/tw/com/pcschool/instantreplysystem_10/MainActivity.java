@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db = null;
     String CREATE_TABLE1 = "CREATE TABLE if not exists notice_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement," +
-            "TaskNo TEXT UNIQUE,ShopName TEXT,Addr TEXT,ContactPerson TEXT,Tel TEXT,Remark TEXT,ImpDate TEXT)";
+            "TaskNo TEXT UNIQUE,ShopName TEXT,Addr TEXT,ContactPerson TEXT,Tel TEXT,Remark TEXT,isComp TEXT,ImpDate TEXT)";
     String CREATE_TABLE2 = "CREATE TABLE if not exists reply_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement," +
             "TaskNo TEXT UNIQUE,ArrivalTime TEXT,CompTime TEXT,Coordinate TEXT,isComp TEXT,Remark TEXT" +
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         // setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_my_dialog);
         //DB
-        db = openOrCreateDatabase("irs_db11.db", 0, null);
+        db = openOrCreateDatabase("irs_db02.db", 0, null);
         db.execSQL(CREATE_TABLE1);
         db.execSQL(CREATE_TABLE2);
         //DB

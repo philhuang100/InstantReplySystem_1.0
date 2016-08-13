@@ -157,7 +157,8 @@
         android:id="@+id/button"
         android:layout_alignTop="@+id/R_SN"
         android:layout_alignRight="@+id/R_Remark"
-        android:layout_alignEnd="@+id/R_Remark" />
+        android:layout_alignEnd="@+id/R_Remark"
+        android:textColor="#1726f7" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -167,7 +168,8 @@
         android:id="@+id/button3"
         android:layout_alignBottom="@+id/R_Signature"
         android:layout_alignRight="@+id/R_Remark"
-        android:layout_alignEnd="@+id/R_Remark" />
+        android:layout_alignEnd="@+id/R_Remark"
+        android:textColor="#0714ca" />
 
     <Button
         android:layout_width="wrap_content"
@@ -177,7 +179,10 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/textView25"
         android:layout_toEndOf="@+id/textView25"
-        android:onClick="end_click" />
+        android:onClick="end_click"
+        android:textColor="#f03535"
+        android:textStyle="normal|bold|italic"
+        android:textSize="@dimen/abc_action_bar_progress_bar_size" />
 
     <TextView
         android:layout_width="wrap_content"

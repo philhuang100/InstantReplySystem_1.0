@@ -2,6 +2,7 @@ package tw.com.pcschool.instantreplysystem_10;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.YuvImage;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -62,17 +63,22 @@ public class DBAdapterActivity extends BaseAdapter {
             holder.tv2 = (TextView) convertView.findViewById(R.id.textView4);
             //holder.tv3 = (TextView) convertView.findViewById(R.id.textView10);
             holder.tv4 = (TextView) convertView.findViewById(R.id.textView11);
-            holder.btn1 = (Button) convertView.findViewById(R.id.button2);
+           // holder.btn1 = (Button) convertView.findViewById(R.id.button2);
             // holder.chk1 = (CheckBox) convertView.findViewById(R.id.checkBox);
+            holder.img1 = (ImageView) convertView.findViewById(R.id.imageView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         holder.tv1.setText(data.get(position).ShopName);
-        holder.tv2.setText(data.get(position).Tel);
+        holder.tv2.setText(data.get(position).isComp);
+        //holder.tv2.setText(data.get(position).Tel);
         //holder.tv3.setText(data.get(position).ContactPerson);
         holder.tv4.setText(data.get(position).Addr);
+        //if(data.get(position).isComp.equals("Y"))
+            holder.img1.setImageResource(R.drawable.ok1);
+        /*
         holder.btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,13 +87,15 @@ public class DBAdapterActivity extends BaseAdapter {
                 Bundle b = new Bundle();
                 b.putString("ShopName", data.get(p).ShopName);
                 b.putString("Addr", data.get(p).Addr);
+
                // b.putString("ContactPerson", data.get(p).ContactPerson);
-                b.putString("Tel", data.get(p).Tel);
+               // b.putString("Tel", data.get(p).Tel);
 
                 it.putExtras(b);
                 context.startActivity(it);
             }
-        });
+        }); */
+
         return convertView;
     }
 
@@ -97,6 +105,7 @@ public class DBAdapterActivity extends BaseAdapter {
            // TextView tv3;
             TextView tv4;
             Button btn1;
+            ImageView img1;
             //CheckBox chk1;
         }
 

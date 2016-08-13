@@ -6,18 +6,20 @@ package tw.com.pcschool.instantreplysystem_10;
 public class SQLiteDB {
         public String ShopName;
         public String Addr;
+        public String isComp;
         public String ContactPerson;
         public String Tel;
         public String Remark;
         public String TaskNo;
-        public SQLiteDB(String a, String b, String c, String d,String e,String f)
+        public SQLiteDB(String a, String b, String c, String d,String e,String f,String g)
         {
             ShopName=a;
             Addr=b;
-            Tel=c;
-            ContactPerson=d;
-            Remark=e;
-            TaskNo=f;
+            isComp=c;
+            Tel=d;
+            ContactPerson=e;
+            Remark=f;
+            TaskNo=g;
         }
 
     }

@@ -19,8 +19,8 @@ public class ScheduleBActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_b);
-        SQLiteDatabase db = openOrCreateDatabase("irs_db11.db", MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("select _id,ShopName,Addr,Tel,ContactPerson,Remark,TaskNo from notice_tb",null);
+        SQLiteDatabase db = openOrCreateDatabase("irs_db02.db", MODE_PRIVATE, null);
+        Cursor cursor = db.rawQuery("select _id,ShopName,Addr,isComp,Tel,ContactPerson,Remark,TaskNo from notice_tb",null);
         mylist = new ArrayList<>();
         for(int i = 0 ; i < cursor.getCount() ; i++ )
         {
@@ -28,11 +28,12 @@ public class ScheduleBActivity extends AppCompatActivity {
             cursor.moveToPosition(i);
             String ShopName = cursor.getString(cursor.getColumnIndex("ShopName"));
             String Addr = cursor.getString(cursor.getColumnIndex("Addr"));
+            String isComp = cursor.getString(cursor.getColumnIndex("isComp"));
             String ContactPerson = cursor.getString(cursor.getColumnIndex("ContactPerson"));
             String Tel = cursor.getString(cursor.getColumnIndex("Tel"));
             String Remark = cursor.getString(cursor.getColumnIndex("Remark"));
             String TaskNo = cursor.getString(cursor.getColumnIndex("TaskNo"));
-            mylist.add(new SQLiteDB(ShopName, Addr,Tel, ContactPerson,Remark,TaskNo));
+            mylist.add(new SQLiteDB(ShopName, Addr,isComp,Tel, ContactPerson,Remark,TaskNo));
         }
               // if (cursor != null && cursor.getCount() >= 0) {
         lv3 = (ListView) findViewById(R.id.listView3);
@@ -41,22 +42,27 @@ public class ScheduleBActivity extends AppCompatActivity {
         lv3.setAdapter(adapter);
         db.close();
 
-        /*
+        //==========================
         lv3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+               // Intent it = new Intent(ScheduleBActivity.this, DetailActivity.class);
                 Bundle b = new Bundle();
-                b.putString("name", mylist.get(position).name);
-                b.putString("phone", mylist.get(position).phone);
-                b.putInt("photo", mylist.get(position).photoid);
-
-                Intent it = new Intent(Main3Activity.this, DetailActivity.class);
+               //b.putString("ShopName", data.get(p).ShopName);
+               // b.putString("Addr", data.get(p).Addr);
+                b.putString("ShopName", mylist.get(position).ShopName);
+                b.putString("Addr", mylist.get(position).Addr);
+                b.putString("Tel", mylist.get(position).Tel);
+                b.putString("ContactPerson", mylist.get(position).ContactPerson);
+                b.putString("Remark", mylist.get(position).Remark);
+                Intent it = new Intent(ScheduleBActivity.this, DetailActivity.class);
                 it.putExtras(b);
                 startActivity(it);
+
             }
         });
-        */
+        //=========================
 
     }
 }
