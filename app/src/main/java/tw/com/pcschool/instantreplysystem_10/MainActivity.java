@@ -5,13 +5,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,11 +45,15 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db = null;
     String CREATE_TABLE1 = "CREATE TABLE if not exists notice_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement," +
-            "TaskNo TEXT UNIQUE,ShopName TEXT,Addr TEXT,ContactPerson TEXT,Tel TEXT,Remark TEXT,isComp TEXT,ImpDate TEXT)";
+            "TaskNo TEXT UNIQUE,ShopName TEXT,Addr TEXT,ContactPerson TEXT DEFAULT ' ',Tel TEXT,"+
+            "Remark TEXT DEFAULT ' ',isComp TEXT DEFAULT ' ',ImpDate TEXT)";
     String CREATE_TABLE2 = "CREATE TABLE if not exists reply_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement," +
-            "TaskNo TEXT UNIQUE,ArrivalTime TEXT,CompTime TEXT,Coordinate TEXT,isComp TEXT,Remark TEXT" +
-            "SN TEXT,Signature TEXT,ExpDate TEXT)";
+            "TaskNo TEXT UNIQUE,ArrivalTime TEXT DEFAULT ' ',CompTime TEXT DEFAULT ' '," +
+            "Coordinate TEXT DEFAULT ' ',isComp TEXT DEFAULT ' ',Remark TEXT DEFAULT ' ',SN TEXT DEFAULT ' '," +
+            "Signature TEXT DEFAULT ' ',ExpDate TEXT DEFAULT ' ',CompDate TEXT DEFAULT ' ')";
+    String CREATE_TABLE3 = "CREATE TABLE if not exists email_tb" +
+            "(_id INTEGER PRIMARY KEY autoincrement,ReplyMail TEXT  UNIQUE)";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -59,9 +66,20 @@ public class MainActivity extends AppCompatActivity {
         // setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_my_dialog);
         //DB
-        db = openOrCreateDatabase("irs_db02.db", 0, null);
+        db = openOrCreateDatabase("irs_db04.db", 0, null);
         db.execSQL(CREATE_TABLE1);
         db.execSQL(CREATE_TABLE2);
+        db.execSQL(CREATE_TABLE3);
+        Cursor cursor = db.rawQuery("select * from reply_tb where isComp=='Y' "+
+                                     "and (CompTime!='' or CompTime is not NULL) "+
+                                     "and CompDate<date('now')" , null);
+        if (cursor.getCount() != 0) {
+            db.execSQL("delete * from  reply_tb where isComp=='Y' " +
+                    "and (CompTime!='' or CompTime is not NULL) " +
+                    "and CompDate<date('now')");
+            //db.execSQL("delete * from  notice_tb where isComp=='Y' and substring(CompTime,0,10)<date('now')");
+        }
+
         //DB
         // 取得自定义View
       /*/帳密
@@ -177,13 +195,31 @@ public class MainActivity extends AppCompatActivity {
         Intent it = new Intent(MainActivity.this, MapsActivity.class);
         startActivity(it);
     }
+    public void c_click(View v) {
+        Intent it = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(it);
+    }
 
     public void replyClick(View v) {
+        db = openOrCreateDatabase("irs_db04.db", 0, null);
+        Cursor cursor = db.rawQuery("select  ReplyMail from email_tb ",null );
+        if (cursor.getCount() == 0) {
+          //...................................................
+        }
+        db.close();
+        Intent it = new Intent(MainActivity.this, ReplyActivity.class);
+        startActivity(it);
+    }
+    public void r_click(View v) {
         Intent it = new Intent(MainActivity.this, ReplyActivity.class);
         startActivity(it);
     }
 
     public void scheduleClick(View v) {
+        Intent it = new Intent(MainActivity.this, ScheduleBActivity.class);
+        startActivity(it);
+    }
+    public void s_click(View v) {
         Intent it = new Intent(MainActivity.this, ScheduleBActivity.class);
         startActivity(it);
     }
@@ -213,6 +249,40 @@ public class MainActivity extends AppCompatActivity {
 
 
         builder.create().show();
+    }
+    //按返回鍵時詢問是否離開
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) { // 攔截返回鍵
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("任務完成")
+                    .setMessage("工作結束，要離開了嗎?")
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setNegativeButton("取消",
+                            new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    // TODO Auto-generated method stub
+
+                                }
+                            })
+                    .setPositiveButton("確定",
+                            new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                              Toast.makeText(MainActivity.this, "您辛苦了!! 再見。", Toast.LENGTH_SHORT).show();
+                              MainActivity.this.finish();
+
+                                }
+                            }).show();
+        }
+        return true;
     }
 
 }

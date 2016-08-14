@@ -38,7 +38,8 @@
         android:id="@+id/textView14"
         android:layout_below="@+id/textView12"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,12 +57,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/textView13"
+        android:autoLink="phone"
         android:layout_gravity="center_horizontal"
         android:layout_alignTop="@+id/textView14"
-        android:layout_toRightOf="@+id/textView14"
         android:layout_toEndOf="@+id/textView14"
-        android:layout_marginLeft="69dp"
-        android:layout_marginStart="69dp" />
+        android:textSize="30dp"
+        android:layout_toRightOf="@+id/textView14" />
 
     <WebView
         android:layout_width="match_parent"

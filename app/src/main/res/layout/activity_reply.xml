@@ -26,7 +26,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/R_ShopName"
-        android:layout_above="@+id/R_Addr"
+        android:layout_below="@+id/R_TaskNo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -37,19 +37,21 @@
         android:text="到場時間"
         android:id="@+id/textView18"
         android:layout_above="@+id/textView20"
-        android:layout_toLeftOf="@+id/R_isComp"
-        android:layout_toStartOf="@+id/R_isComp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#430350" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/R_ArrivalTime"
-        android:layout_above="@+id/R_CompTime"
-        android:layout_alignLeft="@+id/R_CompTime"
-        android:layout_alignStart="@+id/R_CompTime"
-        android:layout_alignRight="@+id/R_CompTime"
-        android:layout_alignEnd="@+id/R_CompTime" />
+        android:layout_above="@+id/textView20"
+        android:layout_alignRight="@+id/R_SN"
+        android:layout_alignEnd="@+id/R_SN"
+        android:layout_toRightOf="@+id/textView18"
+        android:layout_toEndOf="@+id/textView18"
+        android:textColor="#430350" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,31 +59,31 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="完成時間"
         android:id="@+id/textView20"
-        android:layout_alignTop="@+id/R_CompTime"
+        android:layout_above="@+id/textView22"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#430350" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/R_CompTime"
-        android:layout_marginBottom="32dp"
-        android:layout_above="@+id/R_isComp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/R_SN"
-        android:layout_alignStart="@+id/R_SN" />
+        android:layout_below="@+id/R_ArrivalTime"
+        android:layout_toRightOf="@+id/textView23"
+        android:layout_toEndOf="@+id/textView23"
+        android:textColor="#430350" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="完成否"
+        android:text="正常完成否"
         android:id="@+id/textView22"
         android:layout_above="@+id/textView23"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#430350" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -89,9 +91,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="異常說明"
         android:id="@+id/textView23"
+        android:textColor="#f90303"
         android:layout_above="@+id/R_Remark"
-        android:layout_toLeftOf="@+id/R_SN"
-        android:layout_toStartOf="@+id/R_SN" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -99,8 +102,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="設備序號"
         android:id="@+id/textView24"
-        android:layout_alignBaseline="@+id/R_SN"
-        android:layout_alignBottom="@+id/R_SN"
+        android:textColor="#4b06ca"
+        android:layout_alignTop="@+id/R_SN"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -110,8 +113,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="客戶簽名"
         android:id="@+id/textView25"
-        android:layout_marginBottom="44dp"
-        android:layout_above="@+id/button4"
+        android:textColor="#4b06ca"
+        android:layout_alignBottom="@+id/R_Signature"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -119,78 +122,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/R_isComp"
-        android:layout_above="@+id/textView23"
-        android:layout_toRightOf="@+id/textView20"
-        android:layout_toEndOf="@+id/textView20" />
+        android:textColor="#f00281"
+        android:layout_below="@+id/R_CompTime"
+        android:layout_toRightOf="@+id/textView22"
+        android:layout_toEndOf="@+id/textView22" />
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:id="@+id/R_Remark"
-        android:layout_above="@+id/R_SN"
-        android:layout_centerHorizontal="true" />
+        android:background="#dbd5d5"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
         android:id="@+id/R_SN"
-        android:layout_above="@+id/textView25"
-        android:layout_alignLeft="@+id/R_Signature"
-        android:layout_alignStart="@+id/R_Signature"
-        android:layout_alignRight="@+id/R_Signature"
-        android:layout_alignEnd="@+id/R_Signature" />
+        android:textColor="#4b06ca"
+        android:background="#dbd5d5"
+        android:layout_marginBottom="28dp"
+        android:layout_above="@+id/R_Signature"
+        android:layout_toRightOf="@+id/textView24"
+        android:layout_toEndOf="@+id/textView24" />
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="fill_parent"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
         android:id="@+id/R_Signature"
-        android:layout_toRightOf="@+id/textView25"
         android:longClickable="true"
-        android:layout_alignTop="@+id/textView25"
-        android:layout_above="@+id/button4" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="掃描"
-        android:id="@+id/button"
-        android:layout_alignTop="@+id/R_SN"
-        android:layout_alignRight="@+id/R_Remark"
-        android:layout_alignEnd="@+id/R_Remark"
-        android:textColor="#1726f7" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="簽名"
-        android:id="@+id/button3"
-        android:layout_alignBottom="@+id/R_Signature"
-        android:layout_alignRight="@+id/R_Remark"
-        android:layout_alignEnd="@+id/R_Remark"
-        android:textColor="#0714ca" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="結案"
-        android:id="@+id/button4"
-        android:layout_alignParentBottom="true"
+        android:background="#dbd5d5"
+        android:layout_above="@+id/imageButton2"
         android:layout_toRightOf="@+id/textView25"
-        android:layout_toEndOf="@+id/textView25"
-        android:onClick="end_click"
-        android:textColor="#f03535"
-        android:textStyle="normal|bold|italic"
-        android:textSize="@dimen/abc_action_bar_progress_bar_size" />
+        android:layout_toEndOf="@+id/textView25" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/R_Addr"
-        android:layout_above="@+id/textView18"
+        android:layout_below="@+id/R_ContactPerson"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -202,6 +175,60 @@
         android:id="@+id/textView10"
         android:layout_alignTop="@+id/R_TaskNo"
         android:layout_alignRight="@+id/R_Remark"
-        android:layout_alignEnd="@+id/R_Remark" />
+        android:layout_alignEnd="@+id/R_Remark"
+        android:textColor="#890cc3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/R_ContactPerson"
+        android:autoLink="phone"
+        android:layout_below="@+id/R_ShopName"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/R_Tel"
+        android:autoLink="phone"
+        android:layout_above="@+id/R_Addr"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton2"
+        android:src="@drawable/end_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#02ffffff"
+        android:onClick="end_click" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton3"
+        android:src="@drawable/sign_btn"
+        android:background="#04ffffff"
+        android:layout_alignTop="@+id/R_Signature"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="sign_click" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton4"
+        android:src="@drawable/barcode_btn"
+        android:background="#05ffffff"
+        android:layout_alignBottom="@+id/R_SN"
+        android:layout_alignLeft="@+id/imageButton3"
+        android:layout_alignStart="@+id/imageButton3"
+        android:onClick="barcode_click" />
 
 </RelativeLayout>

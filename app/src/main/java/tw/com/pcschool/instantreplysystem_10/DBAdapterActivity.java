@@ -76,7 +76,8 @@ public class DBAdapterActivity extends BaseAdapter {
         //holder.tv2.setText(data.get(position).Tel);
         //holder.tv3.setText(data.get(position).ContactPerson);
         holder.tv4.setText(data.get(position).Addr);
-        //if(data.get(position).isComp.equals("Y"))
+        TextView chkComp = (TextView) convertView.findViewById(R.id.textView4);
+        if(chkComp.getText().toString().equals("Y"))
             holder.img1.setImageResource(R.drawable.ok1);
         /*
         holder.btn1.setOnClickListener(new View.OnClickListener() {
