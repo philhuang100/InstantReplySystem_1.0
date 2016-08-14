@@ -203,8 +203,33 @@ public class MainActivity extends AppCompatActivity {
     public void replyClick(View v) {
         db = openOrCreateDatabase("irs_db04.db", 0, null);
         Cursor cursor = db.rawQuery("select  ReplyMail from email_tb ",null );
+        //final Context context = null;
         if (cursor.getCount() == 0) {
-          //...................................................
+          Toast.makeText(MainActivity.this,"因回報案件會即時以EMAIL回覆派工單位，故須設定一組帳號"
+                  ,Toast.LENGTH_LONG).show();
+          AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
+          builder.setTitle("請設定EMAIL帳號，啟動回報機制");
+          builder.setIcon(android.R.drawable.ic_dialog_info);
+            builder.setMessage("輸入EMAIL帳號：");
+            final EditText et=new EditText(MainActivity.this);
+            builder.setView(et);
+            builder.setPositiveButton("輸入確認", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String str = et.getText().toString();
+                    db.execSQL("insert into email_tb(ReplyMail) values('"+str+"')");
+                    Toast.makeText(MainActivity.this,"帳號已設定完成",Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("暫時忽略", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.create().show();
+
         }
         db.close();
         Intent it = new Intent(MainActivity.this, ReplyActivity.class);
