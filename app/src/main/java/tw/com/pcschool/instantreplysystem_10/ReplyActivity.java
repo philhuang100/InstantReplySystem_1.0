@@ -1,7 +1,9 @@
 package tw.com.pcschool.instantreplysystem_10;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,7 +55,7 @@ public class ReplyActivity extends AppCompatActivity {
         });
         //====================
 
-        db = openOrCreateDatabase("irs_db04.db", 0, null);
+        db = openOrCreateDatabase("irs_db06.db", 0, null);
         Cursor cursor = db.rawQuery("select  notice_tb.TaskNo,ShopName,ArrivalTime,Coordinate,Addr," +
                 "Tel,ContactPerson from notice_tb,reply_tb " +
                 "where notice_tb.TaskNo=reply_tb.TaskNo " +
@@ -104,7 +108,7 @@ public class ReplyActivity extends AppCompatActivity {
         Cursor cursor = db.rawQuery("select * from reply_tb where TaskNo='"+tono+"'", null);
        // if (cursor.getCount() != 0) {
             cursor.moveToPosition(0);
-        //Log.d("DDDD",cursor.getString(cursor.getColumnIndex("TaskNo")));
+
              rtn_data = cursor.getString(cursor.getColumnIndex("TaskNo")) + "," +
                     cursor.getString(cursor.getColumnIndex("ArrivalTime")) + "," +
                     cursor.getString(cursor.getColumnIndex("CompTime")) + "," +
@@ -116,17 +120,40 @@ public class ReplyActivity extends AppCompatActivity {
                     cursor.getString(cursor.getColumnIndex("ExpDate")) + "," +
                     cursor.getString(cursor.getColumnIndex("CompDate"));
       //  }
-        Log.d("EEEE","222"+rtn_data);
-        //取得內部儲存體擺放暫存檔案的目錄
+          //取得內部儲存體擺放暫存檔案的目錄
         //預設擺放路徑為 /data/data/[package.name]/cache/
-        File dir = getCacheDir();
-         File outFile = new File(dir,tono+ ".csv");
+        //===============================
+        if(!Environment.getExternalStorageState().equals(Environment.MEDIA_REMOVED) ) {
+            Log.d("PPP","PPP");
+            try {
+                //取得SD卡路徑
+                Log.d("PPP","A1");
+                File SDCardpath = Environment.getExternalStorageDirectory();
+                File DataPath = new File(SDCardpath.getAbsolutePath() + "/irs");
+                Log.d("PPP","A2");
+                if (!DataPath.exists()) DataPath.mkdirs();
+                //將資料寫入到SD卡
+                Log.d("PPP","A3");
+               FileWriter myFile = new FileWriter(SDCardpath.getAbsolutePath() + "/irs/" + tono + ".csv");
+
+                Log.d("PPP","A4");
+                myFile.write(rtn_data);
+                Log.d("PPP","A5");
+                myFile.close();
+                Log.d("PPP","A6");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //=================================
+        //File dir = getCacheDir();
+        // File outFile = new File(dir,tono+ ".csv");
 
         //也可以使用 File.createTempFile() 來建立暫存檔案
         //File outFile2 = File.createTempFile("test", ".txt", dir);
        //將資料寫入檔案中，若 package name 為 com.myapp
        //就會產生 /data/data/com.myapp/cache/test.txt 檔案
-
+/*
        FileOutputStream osw = null;
        try {
            osw = new FileOutputStream(outFile);
@@ -140,74 +167,37 @@ public class ReplyActivity extends AppCompatActivity {
           } catch (Exception e) {
                     ;
           }
-       }
+       }*/
        //----------------------------------
         //=======START寄送郵件==============================
         // 傳送郵件(Send mail)
-       /*
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:phil.huang100@gmail.com"));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "派工單："+tono+" 回報訊息");
-        intent.putExtra(Intent.EXTRA_TEXT, "派工單；"+tono+"， 完成時間："+comptime);
-        */
         //------------------------
+        Log.d("PPP","BBB");
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         String[] to = {"phil.huang100@gmail.com"};
         intent.putExtra(Intent.EXTRA_EMAIL, to);
-        intent.putExtra(Intent.EXTRA_SUBJECT, "這是主旨。");
-        intent.putExtra(Intent.EXTRA_TEXT, "這是本文內容。");
-        // 選擇一張圖片來加入附件
-        // 取得的SD卡資料夾
-        //File sdcard = Environment.getExternalStorageDirectory();
-       // File file = new File(sdcard, "test.jpg");
-        //intent.putExtra(Intent.EXTRA_STREAM,
-         //       Uri.parse("file://"+ file.getAbsolutePath()));
-
-        intent.putExtra(Intent.EXTRA_STREAM,Uri.parse("file://"+ outFile.toString()));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "派工單："+tono+" 回報訊息");
+        intent.putExtra(Intent.EXTRA_TEXT, "派工單；"+tono+"完成時間："+comptime);
+            //==================
+            File root = Environment.getExternalStorageDirectory();
+            String pathToMyAttachedFile = "irs/"+tono+ ".csv";
+            File file = new File(root, pathToMyAttachedFile);
+        Log.d("PPP","CCC");
+            if (!file.exists() || !file.canRead()) {
+                return;
+            }
+            Uri uri = Uri.fromFile(file);
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+            //==================
+        //intent.putExtra(Intent.EXTRA_STREAM,Uri.parse("file://"+ outFile.toString()));
+       // Uri uri = Uri.fromFile(outFile);
+        //intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.setType("text/csv");
-
-        //呼叫應用程式列表
-        startActivity(Intent.createChooser(intent,"請選擇郵件應用程式，例如GMAIL"));
-        //---------------------------
-        try{
-            startActivity(intent);
-            Toast.makeText(ReplyActivity.this,"已啟動郵件，準備傳送", Toast.LENGTH_SHORT).show();
-        }catch (ActivityNotFoundException e){
-            Toast.makeText(ReplyActivity.this,"傳送失敗", Toast.LENGTH_SHORT).show();
-        }
+        startActivity(Intent.createChooser(intent, "Pick an Email provider"));
+        Toast.makeText(ReplyActivity.this,"已啟動郵件，準備傳送", Toast.LENGTH_SHORT).show();
 
 
-       /* Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:phil.huang100@gmail.com"));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "這裡是主旨。");
-        intent.putExtra(Intent.EXTRA_TEXT, "這是本文內容。");
-        startActivity(intent);
- */
- /*
-        // 傳送附件(Send mail with enclosed file)
-        //和傳送郵件不同的利用Intent.ACTION_SEND，
-        //而附件檔案必須利用Uri型別指定。
-
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
-        String[] to = {"phil.huang100@gmail.com"};
-        intent.putExtra(Intent.EXTRA_EMAIL, to);
-        intent.putExtra(Intent.EXTRA_SUBJECT, "這是主旨。");
-        intent.putExtra(Intent.EXTRA_TEXT, "這是本文內容。");
-
-        // 選擇一張圖片來加入附件
-        // 取得的SD卡資料夾
-        File sdcard = Environment.getExternalStorageDirectory();
-        File file = new File(sdcard, "test.jpg");
-        intent.putExtra(Intent.EXTRA_STREAM,
-                Uri.parse("file://"+ file.getAbsolutePath()));
-        intent.setType("image/jpeg");
-        //呼叫應用程式列表
-        startActivity(Intent.createChooser(intent,"請選擇郵件應用程式，例如GMAIL"));
-        */
         //=======END寄送郵件=============================
         db.close();
         //Intent it = new Intent(ReplyActivity.this, MainActivity.class);
