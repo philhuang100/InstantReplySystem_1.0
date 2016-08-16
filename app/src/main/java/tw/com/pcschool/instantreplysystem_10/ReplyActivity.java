@@ -1,14 +1,18 @@
 package tw.com.pcschool.instantreplysystem_10;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -55,7 +60,7 @@ public class ReplyActivity extends AppCompatActivity {
         });
         //====================
 
-        db = openOrCreateDatabase("irs_db06.db", 0, null);
+        db = openOrCreateDatabase("irs_db07.db", 0, null);
         Cursor cursor = db.rawQuery("select  notice_tb.TaskNo,ShopName,ArrivalTime,Coordinate,Addr," +
                 "Tel,ContactPerson from notice_tb,reply_tb " +
                 "where notice_tb.TaskNo=reply_tb.TaskNo " +
@@ -124,86 +129,82 @@ public class ReplyActivity extends AppCompatActivity {
         //預設擺放路徑為 /data/data/[package.name]/cache/
         //===============================
         if(!Environment.getExternalStorageState().equals(Environment.MEDIA_REMOVED) ) {
-            Log.d("PPP","PPP");
             try {
+                //============================
+          /* Request user permissions in runtime*/
+            int permissionW = ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            int permissionR = ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE);
+            if (permissionW != PackageManager.PERMISSION_GRANTED ||
+                permissionR != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(ReplyActivity.this,
+                        new String[]{
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        },
+                        100);
+            }
+           /*Request user permissions in runtime */
+                //==============================
                 //取得SD卡路徑
-                Log.d("PPP","A1");
                 File SDCardpath = Environment.getExternalStorageDirectory();
-                File DataPath = new File(SDCardpath.getAbsolutePath() + "/irs");
-                Log.d("PPP","A2");
+               // File DataPath = new File(SDCardpath.getAbsolutePath() + "/irs");
+                File DataPath = new File( SDCardpath.getParent() + "/" + SDCardpath.getName() + "/irs" );
                 if (!DataPath.exists()) DataPath.mkdirs();
                 //將資料寫入到SD卡
-                Log.d("PPP","A3");
-               FileWriter myFile = new FileWriter(SDCardpath.getAbsolutePath() + "/irs/" + tono + ".csv");
-
-                Log.d("PPP","A4");
+                FileWriter myFile = new FileWriter(SDCardpath.getParent()+ "/" + SDCardpath.getName() + "/irs/" + tono + ".csv");
                 myFile.write(rtn_data);
-                Log.d("PPP","A5");
                 myFile.close();
-                Log.d("PPP","A6");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        //=================================
-        //File dir = getCacheDir();
-        // File outFile = new File(dir,tono+ ".csv");
-
-        //也可以使用 File.createTempFile() 來建立暫存檔案
-        //File outFile2 = File.createTempFile("test", ".txt", dir);
-       //將資料寫入檔案中，若 package name 為 com.myapp
-       //就會產生 /data/data/com.myapp/cache/test.txt 檔案
-/*
-       FileOutputStream osw = null;
-       try {
-           osw = new FileOutputStream(outFile);
-           osw.write(rtn_data.getBytes());
-           osw.flush();
-       } catch (Exception e) {
-                ;
-       } finally {
-       try {
-            osw.close();
-          } catch (Exception e) {
-                    ;
-          }
-       }*/
-       //----------------------------------
         //=======START寄送郵件==============================
         // 傳送郵件(Send mail)
         //------------------------
-        Log.d("PPP","BBB");
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         String[] to = {"phil.huang100@gmail.com"};
         intent.putExtra(Intent.EXTRA_EMAIL, to);
         intent.putExtra(Intent.EXTRA_SUBJECT, "派工單："+tono+" 回報訊息");
-        intent.putExtra(Intent.EXTRA_TEXT, "派工單；"+tono+"完成時間："+comptime);
+        intent.putExtra(Intent.EXTRA_TEXT, "派工單；"+tono+"\n"+
+                                             "完成時間："+comptime+"\n"+
+                                             "異常說明："+st_Remark);
             //==================
             File root = Environment.getExternalStorageDirectory();
             String pathToMyAttachedFile = "irs/"+tono+ ".csv";
             File file = new File(root, pathToMyAttachedFile);
-        Log.d("PPP","CCC");
-            if (!file.exists() || !file.canRead()) {
+             if (!file.exists() || !file.canRead()) {
                 return;
             }
             Uri uri = Uri.fromFile(file);
             intent.putExtra(Intent.EXTRA_STREAM, uri);
             //==================
-        //intent.putExtra(Intent.EXTRA_STREAM,Uri.parse("file://"+ outFile.toString()));
-       // Uri uri = Uri.fromFile(outFile);
-        //intent.putExtra(Intent.EXTRA_STREAM, uri);
-        intent.setType("text/csv");
+         intent.setType("text/csv");
         startActivity(Intent.createChooser(intent, "Pick an Email provider"));
         Toast.makeText(ReplyActivity.this,"已啟動郵件，準備傳送", Toast.LENGTH_SHORT).show();
 
 
         //=======END寄送郵件=============================
         db.close();
-        //Intent it = new Intent(ReplyActivity.this, MainActivity.class);
-       //startActivity(it);
         ReplyActivity.this.finish();
-    }
 
+    }
+    @TargetApi(23)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 100:
+                if (grantResults.length > 0
+                        || grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        || grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(ReplyActivity.this, "允許後請再一次案結案鈕", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(ReplyActivity.this, "無法取得寄送檔案權限", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                return;
+        }
+    }
 
 }

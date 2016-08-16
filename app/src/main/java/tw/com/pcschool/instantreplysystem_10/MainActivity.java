@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         // setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_my_dialog);
         //DB
-        db = openOrCreateDatabase("irs_db06.db", 0, null);
+        db = openOrCreateDatabase("irs_db07.db", 0, null);
         db.execSQL(CREATE_TABLE1);
         db.execSQL(CREATE_TABLE2);
         db.execSQL(CREATE_TABLE3);
@@ -75,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
                                      "and (CompTime!='' or CompTime is not NULL) "+
                                      "and CompDate<date('now')" , null);
         if (cursor.getCount() != 0) {
-            db.execSQL("delete * from  reply_tb where isComp=='Y' " +
+            db.execSQL("delete  from  reply_tb where isComp=='Y' " +
                     "and (CompTime!='' or CompTime is not NULL) " +
                     "and CompDate<date('now')");
-            //db.execSQL("delete * from  notice_tb where isComp=='Y' and substring(CompTime,0,10)<date('now')");
+            //db.execSQL("delete  from  notice_tb where isComp=='Y' and substring(CompTime,0,10)<date('now')");
         }
 
         //DB
@@ -225,16 +225,24 @@ public class MainActivity extends AppCompatActivity {
         startActivity(it);
         db.close();
     }
+    public void docclick(View v) {
+        Intent it = new Intent(MainActivity.this, DocumentActivity.class);
+        startActivity(it);
+        db.close();
+    }
     public void emailclick(View v) {
 
-     //   db = openOrCreateDatabase("irs_db06.db", 0, null);
+     //   db = openOrCreateDatabase("irs_db07.db", 0, null);
         Cursor cursor = db.rawQuery("select  ReplyMail from email_tb ",null );
+
         if (cursor.getCount() != 0) {
             cursor.moveToPosition(0);
             replymail = cursor.getString(cursor.getColumnIndex("ReplyMail"));
+
         }
            // Toast.makeText(MainActivity.this,"因回報案件會即時以EMAIL回覆派工單位，故須設定一組帳號"
              //       ,Toast.LENGTH_LONG).show();
+
             AlertDialog.Builder builder= new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("設定帳號，啟動回報機制");
             builder.setIcon(android.R.drawable.ic_dialog_info);
@@ -246,9 +254,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String str = et.getText().toString();
+                    db = openOrCreateDatabase("irs_db07.db", 0, null);
                     if(replymail.equals("")) {
+                        Log.d("AAA","A3 ");
                         db.execSQL("insert into email_tb(ReplyMail) values('" + str + "')");
+                        Log.d("AAA","A4 ");
                     }else {
+
                         db.execSQL("update email_tb set ReplyMail='" + str + "' where ReplyMail='" + replymail + "')");
                     }
                         Toast.makeText(MainActivity.this,"帳號已設定完成",Toast.LENGTH_SHORT).show();
