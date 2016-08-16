@@ -78,6 +78,8 @@ public class ReplyActivity extends AppCompatActivity {
             et_contactperson.setText(cursor.getString(cursor.getColumnIndex("ContactPerson")));
             TextView et_tel = (TextView) findViewById(R.id.R_Tel);
             et_tel.setText(cursor.getString(cursor.getColumnIndex("Tel")));
+            TextView et_arrivalTime = (TextView) findViewById(R.id.R_Tel);
+            et_arrivalTime.setText(cursor.getString(cursor.getColumnIndex("ArrivalTime")));
 
 
             TextView et_comptime = (TextView) findViewById(R.id.R_CompTime);

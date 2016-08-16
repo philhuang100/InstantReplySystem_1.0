@@ -20,9 +20,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -55,11 +52,7 @@ public class MainActivity extends AppCompatActivity {
             "Signature TEXT DEFAULT ' ',ExpDate TEXT DEFAULT ' ',CompDate TEXT DEFAULT ' ')";
     String CREATE_TABLE3 = "CREATE TABLE if not exists email_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement,ReplyMail TEXT)";
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkInClick(View v) {
-        Intent it = new Intent(MainActivity.this, MapsActivity.class);
+        Intent it = new Intent(MainActivity.this, CheckInActivity.class);
         startActivity(it);
         db.close();
     }
@@ -256,10 +249,8 @@ public class MainActivity extends AppCompatActivity {
                     String str = et.getText().toString();
                     db = openOrCreateDatabase("irs_db07.db", 0, null);
                     if(replymail.equals("")) {
-                        Log.d("AAA","A3 ");
-                        db.execSQL("insert into email_tb(ReplyMail) values('" + str + "')");
-                        Log.d("AAA","A4 ");
-                    }else {
+                       db.execSQL("insert into email_tb(ReplyMail) values('" + str + "')");
+                   }else {
 
                         db.execSQL("update email_tb set ReplyMail='" + str + "' where ReplyMail='" + replymail + "')");
                     }
