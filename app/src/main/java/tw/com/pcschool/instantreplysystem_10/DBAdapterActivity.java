@@ -77,8 +77,13 @@ public class DBAdapterActivity extends BaseAdapter {
         //holder.tv3.setText(data.get(position).ContactPerson);
         holder.tv4.setText(data.get(position).Addr);
         TextView chkComp = (TextView) convertView.findViewById(R.id.textView4);
-        if(chkComp.getText().toString().equals("Y"))
+        //Log.d("WWW","111"+chkComp.getText().toString());
+        //Log.d("WWW","111"+chkComp.getText().toString());
+        if(chkComp.getText().toString().equals("Y")) {
+          //  Log.d("WWW","222"+chkComp.getText().toString());
             holder.img1.setImageResource(R.drawable.ok1);
+            //Log.d("WWW","WWW"+chkComp.getText().toString());
+        }
         /*
         holder.btn1.setOnClickListener(new View.OnClickListener() {
             @Override

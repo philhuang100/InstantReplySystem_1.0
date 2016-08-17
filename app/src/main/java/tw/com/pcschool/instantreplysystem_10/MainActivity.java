@@ -39,12 +39,14 @@ import java.util.Map;
 
 import java.io.FileOutputStream;
 public class MainActivity extends AppCompatActivity {
-    String replymail="";
+    String replymail="";//儲存EMAIL變數
     SQLiteDatabase db = null;
+    String DBName="irs_db10.db";
+    //資料庫結構=====================
     String CREATE_TABLE1 = "CREATE TABLE if not exists notice_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement," +
             "TaskNo TEXT UNIQUE,ShopName TEXT,Addr TEXT,ContactPerson TEXT DEFAULT ' ',Tel TEXT,"+
-            "Remark TEXT DEFAULT ' ',isComp TEXT DEFAULT ' ',ImpDate TEXT)";
+            "Remark TEXT DEFAULT ' ',isComp TEXT DEFAULT ' ',ImpTime TEXT,ImpDate TEXT)";
     String CREATE_TABLE2 = "CREATE TABLE if not exists reply_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement," +
             "TaskNo TEXT UNIQUE,ArrivalTime TEXT DEFAULT ' ',CompTime TEXT DEFAULT ' '," +
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             "Signature TEXT DEFAULT ' ',ExpDate TEXT DEFAULT ' ',CompDate TEXT DEFAULT ' ')";
     String CREATE_TABLE3 = "CREATE TABLE if not exists email_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement,ReplyMail TEXT)";
-
+    //資料庫結構=====================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +62,15 @@ public class MainActivity extends AppCompatActivity {
         // setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_my_dialog);
         //DB
-        db = openOrCreateDatabase("irs_db07.db", 0, null);
+        db = openOrCreateDatabase(DBName, 0, null);//DB存在則讀取，不存在則建立
         db.execSQL(CREATE_TABLE1);
         db.execSQL(CREATE_TABLE2);
         db.execSQL(CREATE_TABLE3);
-        Cursor cursor = db.rawQuery("select * from reply_tb where isComp=='Y' "+
-                                     "and (CompTime!='' or CompTime is not NULL) "+
-                                     "and CompDate<date('now')" , null);
-        if (cursor.getCount() != 0) {
-            db.execSQL("delete  from  reply_tb where isComp=='Y' " +
-                    "and (CompTime!='' or CompTime is not NULL) " +
-                    "and CompDate<date('now')");
-            //db.execSQL("delete  from  notice_tb where isComp=='Y' and substring(CompTime,0,10)<date('now')");
-        }
+       // Cursor cursor = db.rawQuery("select * from reply_tb where NoticeDate<date('now')" , null);
+       // if (cursor.getCount() != 0) {
+            //db.execSQL("delete  from  reply_tb where NoticeDate<date('now')");
+            db.execSQL("delete  from  notice_tb where ImpDate<date('now')");
+        //}
 
         //DB
         // 取得自定义View
@@ -115,10 +113,10 @@ public class MainActivity extends AppCompatActivity {
                     //====================
                     String item[] = line.split(",");//csv文件為依據逗號切割
                    if(flag_1!=1){
-                      db.execSQL("insert into notice_tb(TaskNo,ShopName,Addr,Tel,ContactPerson,Remark,ImpDate) values('"+
+                      db.execSQL("insert into notice_tb(TaskNo,ShopName,Addr,Tel,ContactPerson,Remark,ImpTime,ImpDate) values('"+
                                  item[0]+"','"+item[1]+"','"+item[2]+"','"+
                                  item[3]+"','"+item[4]+"','"+item[5]+
-                                "',datetime('now','localtime'))");
+                                "',datetime('now','localtime'),date('now'))");
                      db.execSQL("insert into reply_tb(TaskNo) values('"+ item[0]+"')");
 
                    }
@@ -192,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         db.close();
     }
     public void c_click(View v) {
-        Intent it = new Intent(MainActivity.this, MapsActivity.class);
+        Intent it = new Intent(MainActivity.this, CheckInActivity.class);
         startActivity(it);
         db.close();
     }
@@ -225,14 +223,15 @@ public class MainActivity extends AppCompatActivity {
     }
     public void emailclick(View v) {
 
-     //   db = openOrCreateDatabase("irs_db07.db", 0, null);
+        db = openOrCreateDatabase(DBName, 0, null);
+        Log.d("AAA","A1");
         Cursor cursor = db.rawQuery("select  ReplyMail from email_tb ",null );
-
         if (cursor.getCount() != 0) {
+            Log.d("AAA","A2");
             cursor.moveToPosition(0);
             replymail = cursor.getString(cursor.getColumnIndex("ReplyMail"));
-
         }
+        Log.d("AAA","A3");
            // Toast.makeText(MainActivity.this,"因回報案件會即時以EMAIL回覆派工單位，故須設定一組帳號"
              //       ,Toast.LENGTH_LONG).show();
 
@@ -242,17 +241,18 @@ public class MainActivity extends AppCompatActivity {
             builder.setMessage("輸入EMAIL帳號：");
             final EditText et=new EditText(MainActivity.this);
             builder.setView(et);
+        Log.d("AAA","A4");
             et.setText(replymail);
         builder.setPositiveButton("確認", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    String str = et.getText().toString();
-                    db = openOrCreateDatabase("irs_db07.db", 0, null);
-                    if(replymail.equals("")) {
+
+                      String str = et.getText().toString();
+                      db = openOrCreateDatabase(DBName, 0, null);
+                      if(replymail.equals("")) {
                        db.execSQL("insert into email_tb(ReplyMail) values('" + str + "')");
                    }else {
-
-                        db.execSQL("update email_tb set ReplyMail='" + str + "' where ReplyMail='" + replymail + "')");
+                        db.execSQL("update email_tb set ReplyMail='" + str + "' where ReplyMail='" + replymail + "'");
                     }
                         Toast.makeText(MainActivity.this,"帳號已設定完成",Toast.LENGTH_SHORT).show();
                     dialog.dismiss();

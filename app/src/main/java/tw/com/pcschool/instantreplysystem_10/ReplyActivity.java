@@ -40,6 +40,7 @@ public class ReplyActivity extends AppCompatActivity {
     String ckComp = "";
     String tono = "";
     String comptime = "";
+    String DBName="irs_db10.db";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,7 @@ public class ReplyActivity extends AppCompatActivity {
         });
         //====================
 
-        db = openOrCreateDatabase("irs_db07.db", 0, null);
+        db = openOrCreateDatabase(DBName, 0, null);
         Cursor cursor = db.rawQuery("select  notice_tb.TaskNo,ShopName,ArrivalTime,Coordinate,Addr," +
                 "Tel,ContactPerson from notice_tb,reply_tb " +
                 "where notice_tb.TaskNo=reply_tb.TaskNo " +
@@ -95,7 +96,7 @@ public class ReplyActivity extends AppCompatActivity {
             ReplyActivity.this.finish();
         }
     }
-    public void barcodeclick(View v) {
+    public void barcode_click(View v) {
         Intent it = new Intent(ReplyActivity.this, BarcodeActivity.class);
         startActivity(it);
     }
@@ -163,10 +164,18 @@ public class ReplyActivity extends AppCompatActivity {
         //=======START寄送郵件==============================
         // 傳送郵件(Send mail)
         //------------------------
+        String mailadd="";
+        cursor = db.rawQuery("select ReplyMail from email_tb", null);
+        if (cursor.getCount() != 0) {
+            cursor.moveToPosition(0);
+            mailadd = cursor.getString(cursor.getColumnIndex("ReplyMail"));
+        }
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
-        String[] to = {"phil.huang100@gmail.com"};
+        String[] to = {mailadd};
+        //String[] to = {"phil.huang100@gmail.com"};
         intent.putExtra(Intent.EXTRA_EMAIL, to);
+        //intent.putExtra(Intent.EXTRA_EMAIL, mailadd);
         intent.putExtra(Intent.EXTRA_SUBJECT, "派工單："+tono+" 回報訊息");
         intent.putExtra(Intent.EXTRA_TEXT, "派工單；"+tono+"\n"+
                                              "完成時間："+comptime+"\n"+

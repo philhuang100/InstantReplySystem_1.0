@@ -16,11 +16,12 @@ public class ScheduleBActivity extends AppCompatActivity {
     ListView lv3;
     ArrayList<SQLiteDB> mylist;
     DBAdapterActivity adapter;
+    String DBName="irs_db10.db";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_b);
-        SQLiteDatabase db = openOrCreateDatabase("irs_db07.db", MODE_PRIVATE, null);
+        SQLiteDatabase db = openOrCreateDatabase(DBName, MODE_PRIVATE, null);
         Cursor cursor = db.rawQuery("select _id,ShopName,Addr,isComp,Tel,ContactPerson,Remark,TaskNo from notice_tb", null);
         if (cursor.getCount() != 0) {
             mylist = new ArrayList<>();
