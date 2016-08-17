@@ -1,22 +1,11 @@
 package tw.com.pcschool.instantreplysystem_10;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.YuvImage;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,6 +14,7 @@ public class DBAdapterActivity extends BaseAdapter {
     ArrayList<SQLiteDB> data;
     boolean chk[];
     LayoutInflater inflater;
+    String chkcomp="";
 
     public DBAdapterActivity(Context c, ArrayList<SQLiteDB> list) {
         context = c;
@@ -59,31 +49,30 @@ public class DBAdapterActivity extends BaseAdapter {
 
             convertView = inflater.inflate(R.layout.activity_list_item, null);
             holder = new ViewHolder();
-            holder.tv1 = (TextView) convertView.findViewById(R.id.textView3);
-            holder.tv2 = (TextView) convertView.findViewById(R.id.textView4);
+            holder.tv_shopname = (TextView) convertView.findViewById(R.id.ShopName);
+            holder.tv_tel = (TextView) convertView.findViewById(R.id.Tel);
             //holder.tv3 = (TextView) convertView.findViewById(R.id.textView10);
-            holder.tv4 = (TextView) convertView.findViewById(R.id.textView11);
+            holder.tv_addr = (TextView) convertView.findViewById(R.id.Addr);
            // holder.btn1 = (Button) convertView.findViewById(R.id.button2);
             // holder.chk1 = (CheckBox) convertView.findViewById(R.id.checkBox);
-            holder.img1 = (ImageView) convertView.findViewById(R.id.imageView);
+           // holder.img1 = (ImageView) convertView.findViewById(R.id.imageView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tv1.setText(data.get(position).ShopName);
-        holder.tv2.setText(data.get(position).isComp);
-        //holder.tv2.setText(data.get(position).Tel);
+        holder.tv_shopname.setText(data.get(position).ShopName);
+       // holder.tv2.setText(data.get(position).isComp);
+        holder.tv_tel.setText(data.get(position).Tel);
         //holder.tv3.setText(data.get(position).ContactPerson);
-        holder.tv4.setText(data.get(position).Addr);
-        TextView chkComp = (TextView) convertView.findViewById(R.id.textView4);
-        //Log.d("WWW","111"+chkComp.getText().toString());
-        //Log.d("WWW","111"+chkComp.getText().toString());
-        if(chkComp.getText().toString().equals("Y")) {
-          //  Log.d("WWW","222"+chkComp.getText().toString());
+        holder.tv_addr.setText(data.get(position).Addr);
+        //chkcomp=data.get(position).isComp;
+        //TextView chkComp = (TextView) convertView.findViewById(R.id.textView4);
+
+      //  if(chkComp.getText().toString().equals("Y")) {
+       /* if(chkcomp.equals("Y")) {
             holder.img1.setImageResource(R.drawable.ok1);
-            //Log.d("WWW","WWW"+chkComp.getText().toString());
-        }
+        }*/
         /*
         holder.btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,12 +95,12 @@ public class DBAdapterActivity extends BaseAdapter {
     }
 
         static class ViewHolder {
-            TextView tv1;
-            TextView tv2;
+            TextView tv_shopname;
+            TextView tv_tel;
            // TextView tv3;
-            TextView tv4;
-            Button btn1;
-            ImageView img1;
+            TextView tv_addr;
+            //Button btn1;
+            //ImageView img1;
             //CheckBox chk1;
         }
 

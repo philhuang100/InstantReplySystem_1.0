@@ -22,7 +22,8 @@ public class ScheduleBActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_b);
         SQLiteDatabase db = openOrCreateDatabase(DBName, MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("select _id,ShopName,Addr,isComp,Tel,ContactPerson,Remark,TaskNo from notice_tb", null);
+        Cursor cursor = db.rawQuery("select _id,ShopName,Addr,isComp,Tel,ContactPerson,Remark," +
+                "TaskNo from notice_tb where isComp<>'Y' ", null);
         if (cursor.getCount() != 0) {
             mylist = new ArrayList<>();
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -35,7 +36,7 @@ public class ScheduleBActivity extends AppCompatActivity {
                 String Tel = cursor.getString(cursor.getColumnIndex("Tel"));
                 String Remark = cursor.getString(cursor.getColumnIndex("Remark"));
                 String TaskNo = cursor.getString(cursor.getColumnIndex("TaskNo"));
-                mylist.add(new SQLiteDB(ShopName, Addr, isComp, Tel, ContactPerson, Remark,TaskNo));
+                mylist.add(new SQLiteDB(ShopName,Addr, isComp, Tel, ContactPerson, Remark,TaskNo));
             }
             // if (cursor != null && cursor.getCount() >= 0) {
             lv3 = (ListView) findViewById(R.id.listView3);

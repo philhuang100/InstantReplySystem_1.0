@@ -46,12 +46,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/R_ArrivalTime"
+        android:textColor="#430350"
         android:layout_above="@+id/textView20"
-        android:layout_alignRight="@+id/R_SN"
-        android:layout_alignEnd="@+id/R_SN"
-        android:layout_toRightOf="@+id/textView18"
-        android:layout_toEndOf="@+id/textView18"
-        android:textColor="#430350" />
+        android:layout_toRightOf="@+id/textView23"
+        android:layout_toEndOf="@+id/textView23" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,10 +57,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="完成時間"
         android:id="@+id/textView20"
-        android:layout_above="@+id/textView22"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#430350" />
+        android:textColor="#430350"
+        android:layout_above="@+id/textView23" />
 
     <TextView
         android:layout_width="match_parent"
@@ -78,20 +76,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="正常完成否"
-        android:id="@+id/textView22"
-        android:layout_above="@+id/textView23"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#430350" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="異常說明"
+        android:text="作業說明"
         android:id="@+id/textView23"
-        android:textColor="#f90303"
+        android:textColor="#0a124b"
         android:layout_above="@+id/R_Remark"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -117,15 +104,6 @@
         android:layout_alignBottom="@+id/R_Signature"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/R_isComp"
-        android:textColor="#f00281"
-        android:layout_below="@+id/R_CompTime"
-        android:layout_toRightOf="@+id/textView22"
-        android:layout_toEndOf="@+id/textView22" />
 
     <EditText
         android:layout_width="match_parent"

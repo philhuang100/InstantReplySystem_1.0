@@ -47,7 +47,7 @@ public class ReplyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reply);
         et_Remark = (EditText) findViewById(R.id.R_Remark);
         st_Remark = et_Remark.getText().toString();
-        CheckBox cb = (CheckBox) findViewById(R.id.R_isComp);
+       /*CheckBox cb = (CheckBox) findViewById(R.id.R_isComp);
         //=======================
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
@@ -59,7 +59,7 @@ public class ReplyActivity extends AppCompatActivity {
 
             }
         });
-        //====================
+        */
 
         db = openOrCreateDatabase(DBName, 0, null);
         Cursor cursor = db.rawQuery("select  notice_tb.TaskNo,ShopName,ArrivalTime,Coordinate,Addr," +
@@ -79,7 +79,7 @@ public class ReplyActivity extends AppCompatActivity {
             et_contactperson.setText(cursor.getString(cursor.getColumnIndex("ContactPerson")));
             TextView et_tel = (TextView) findViewById(R.id.R_Tel);
             et_tel.setText(cursor.getString(cursor.getColumnIndex("Tel")));
-            TextView et_arrivalTime = (TextView) findViewById(R.id.R_Tel);
+            TextView et_arrivalTime = (TextView) findViewById(R.id.R_ArrivalTime);
             et_arrivalTime.setText(cursor.getString(cursor.getColumnIndex("ArrivalTime")));
 
 
@@ -106,10 +106,10 @@ public class ReplyActivity extends AppCompatActivity {
     }
     public void end_click(View v) {
             db.execSQL("update reply_tb set "+
-                    "CompTime='"+comptime+"',isComp='"+ckComp+"',"+
+                    "CompTime='"+comptime+"',isComp='Y',"+
                     "Remark='"+st_Remark+"',ExpDate=datetime('now','localtime'),CompDate=date('now')"+
                     " where TaskNo='"+tono+"'");
-            db.execSQL("update notice_tb set isComp='"+ckComp+"' where TaskNo='"+tono+"'");
+            db.execSQL("update notice_tb set isComp='Y' where TaskNo='"+tono+"'");
         //--------------------------------------
         //TaskNo,ArrivalTime,CompTime,Coordinate,isComp,Remark,SN,Signature,ExpDate,CompDate
         String rtn_data="";
@@ -179,7 +179,7 @@ public class ReplyActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_SUBJECT, "派工單："+tono+" 回報訊息");
         intent.putExtra(Intent.EXTRA_TEXT, "派工單；"+tono+"\n"+
                                              "完成時間："+comptime+"\n"+
-                                             "異常說明："+st_Remark);
+                                             "作業說明："+st_Remark);
             //==================
             File root = Environment.getExternalStorageDirectory();
             String pathToMyAttachedFile = "irs/"+tono+ ".csv";

@@ -30,6 +30,7 @@ public class CheckInActivity extends AppCompatActivity implements ConnectionCall
     protected String mLongitudeLabel;
     protected TextView mLatitudeText;
     protected TextView mLongitudeText;
+        String DBName="irs_db10.db";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +83,7 @@ public class CheckInActivity extends AppCompatActivity implements ConnectionCall
                 String date = sDateFormat.format(new java.util.Date());
                 mLatitudeText.setText(String.format("%s: %f", mLatitudeLabel, mLastLocation.getLatitude()));
                 mLongitudeText.setText(String.format("%s: %f", mLongitudeLabel, mLastLocation.getLongitude()));
-                SQLiteDatabase db = openOrCreateDatabase("irs_db07.db", MODE_PRIVATE, null);
+                SQLiteDatabase db = openOrCreateDatabase(DBName, MODE_PRIVATE, null);
                 Cursor cursor = db.rawQuery("select  notice_tb.TaskNo from notice_tb,reply_tb " +
                         "where notice_tb.TaskNo=reply_tb.TaskNo " +
                         "and (CompTime=' ' or CompTime is NULL) order by notice_tb._id ", null);

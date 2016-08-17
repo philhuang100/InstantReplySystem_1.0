@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -224,14 +226,11 @@ public class MainActivity extends AppCompatActivity {
     public void emailclick(View v) {
 
         db = openOrCreateDatabase(DBName, 0, null);
-        Log.d("AAA","A1");
         Cursor cursor = db.rawQuery("select  ReplyMail from email_tb ",null );
         if (cursor.getCount() != 0) {
-            Log.d("AAA","A2");
             cursor.moveToPosition(0);
             replymail = cursor.getString(cursor.getColumnIndex("ReplyMail"));
         }
-        Log.d("AAA","A3");
            // Toast.makeText(MainActivity.this,"因回報案件會即時以EMAIL回覆派工單位，故須設定一組帳號"
              //       ,Toast.LENGTH_LONG).show();
 
@@ -243,6 +242,12 @@ public class MainActivity extends AppCompatActivity {
             builder.setView(et);
         Log.d("AAA","A4");
             et.setText(replymail);
+        builder.setNegativeButton("忽略", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         builder.setPositiveButton("確認", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -255,12 +260,6 @@ public class MainActivity extends AppCompatActivity {
                         db.execSQL("update email_tb set ReplyMail='" + str + "' where ReplyMail='" + replymail + "'");
                     }
                         Toast.makeText(MainActivity.this,"帳號已設定完成",Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                }
-            });
-            builder.setNegativeButton("忽略", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
@@ -307,16 +306,6 @@ public class MainActivity extends AppCompatActivity {
                     .setTitle("任務完成")
                     .setMessage("工作結束，要離開了嗎?")
                     .setIcon(R.mipmap.ic_launcher)
-                    .setNegativeButton("取消",
-                            new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog,
-                                                    int which) {
-                                    // TODO Auto-generated method stub
-
-                                }
-                            })
                     .setPositiveButton("確定",
                             new DialogInterface.OnClickListener() {
 
@@ -325,6 +314,16 @@ public class MainActivity extends AppCompatActivity {
                                                     int which) {
                               Toast.makeText(MainActivity.this, "您辛苦了!! 再見。", Toast.LENGTH_SHORT).show();
                               MainActivity.this.finish();
+
+                                }
+                            })
+                    .setNegativeButton("取消",
+                            new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    // TODO Auto-generated method stub
 
                                 }
                             }).show();

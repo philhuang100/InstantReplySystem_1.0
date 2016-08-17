@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:id="@+id/textView3"
+            android:id="@+id/ShopName"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -29,31 +29,22 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Medium Text"
-            android:id="@+id/textView11"
+            android:id="@+id/Addr"
             android:layout_span="2"
-            android:layout_below="@+id/textView3"
+            android:layout_below="@+id/ShopName"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Small Text"
-            android:id="@+id/textView4"
-            android:layout_alignTop="@+id/imageView"
+            android:id="@+id/Tel"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="26dp"
             android:layout_marginEnd="26dp"
-            android:textIsSelectable="false"
-            android:textColor="#32ffffff" />
+            android:textIsSelectable="false" />
 
 </RelativeLayout>
