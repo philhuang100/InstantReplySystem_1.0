@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 public class CheckInActivity extends AppCompatActivity implements ConnectionCallbacks, OnConnectionFailedListener
     {
     protected static final String TAG = "MainActivity";
-
+        String DBName="irs_db20.db";
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
 
@@ -30,7 +30,6 @@ public class CheckInActivity extends AppCompatActivity implements ConnectionCall
     protected String mLongitudeLabel;
     protected TextView mLatitudeText;
     protected TextView mLongitudeText;
-        String DBName="irs_db10.db";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

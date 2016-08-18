@@ -143,6 +143,8 @@ public class ReplyActivity extends AppCompatActivity {
        // startActivity(it);
         //===========================
         Intent intent = new Intent("MainActivity2.intent.action.Launch");
+        Bundle extras=new Bundle();
+        extras.putString("TN",tono);
         startActivity(intent);
         //=================
     }
