@@ -19,12 +19,13 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/irs_icon_1"
-        android:label="Easy派修通"
+        android:label="Fast派修通"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,10 +52,11 @@
             -->
 
         </activity>
-        <activity android:name=".ImportActivity" />
-        <activity android:name=".ReplyActivity" />
-        <activity android:name=".CheckInActivity" />
-        <activity android:name=".ScheduleActivity" />
+        <activity android:name=".ImportActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ReplyActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".CheckInActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ScheduleActivity" android:screenOrientation="portrait"/>
+        //<activity android:name="com.edwardvanraak.materialbarcodescannerexample.MainActivity" />
 
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for

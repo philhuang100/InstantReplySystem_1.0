@@ -98,17 +98,53 @@ public class ReplyActivity extends AppCompatActivity {
         }
     }
     public void barcode_click(View v) {
+        //=======================
+        Intent intent = new Intent("MainActivity.intent.action.Launch");
+        Bundle extras=new Bundle();
+        extras.putString("TN",tono);
+
+
+        startActivity(intent);
+        //=================
         // Intent it = new Intent(ReplyActivity.this, BarcodeActivity.class);
         // startActivity(it);
-        Toast.makeText(ReplyActivity.this,"此為專業版功能，請洽本公司", Toast.LENGTH_LONG).show();
+       // Toast.makeText(ReplyActivity.this,"此為專業版功能，請洽本公司", Toast.LENGTH_LONG).show();
+       // Intent it = new Intent();
+        //it.setAction(Intent.ACTION_VIEW);
+       // startActivity(it);
+        /*======================
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        ComponentName cn = new ComponentName(com.edwardvanraak.materialbarcodescannerexample,com.edwardvanraak.materialbarcodescannerexample.MainActivity);
+        intent.setComponent(cn);
+        startActivity(intent);
+        //======================*/
+      /*  Intent intent = new Intent(Intent.ACTION_VIEW);
+        //intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        intent.setComponent(new ComponentName(
+                                "com.edwardvanraak.materialbarcodescannerexample",
+                                "com.edwardvanraak.materialbarcodescannerexample.MainActivity"
+                        ));
+                Bundle bundle = new Bundle();
+        bundle.putString("msg", "this message is from project B ");
+        intent.putExtras(bundle);
+
+        intent.putExtra("pid", android.os.Process.myPid());
+
+        startActivityForResult(intent, 1);*/
+        //========================
     }
     public void sign_click(View v) {
         // Intent it = new Intent(ReplyActivity.this, signActivity.class);
         // startActivity(it);
-        Toast.makeText(ReplyActivity.this,"此為專業版功能，請洽本公司", Toast.LENGTH_LONG).show();
-        Intent it = new Intent();
-        it.setAction(Intent.ACTION_VIEW);
-        startActivity(it);
+        //Toast.makeText(ReplyActivity.this,"此為專業版功能，請洽本公司", Toast.LENGTH_LONG).show();
+       // Intent it = new Intent();
+       // it.setAction(Intent.ACTION_VIEW);
+       // startActivity(it);
+        //===========================
+        Intent intent = new Intent("MainActivity2.intent.action.Launch");
+        startActivity(intent);
+        //=================
     }
     public void end_click(View v) {
             db.execSQL("update reply_tb set "+
