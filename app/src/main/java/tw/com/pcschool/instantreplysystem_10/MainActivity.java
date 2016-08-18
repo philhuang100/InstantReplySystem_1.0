@@ -43,7 +43,7 @@ import java.io.FileOutputStream;
 public class MainActivity extends AppCompatActivity {
     String replymail="";//儲存EMAIL變數
     SQLiteDatabase db = null;
-    String DBName="irs_db10.db";
+    String DBName="irs_db20.db";
     //資料庫結構=====================
     String CREATE_TABLE1 = "CREATE TABLE if not exists notice_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement," +
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             "(_id INTEGER PRIMARY KEY autoincrement," +
             "TaskNo TEXT UNIQUE,ArrivalTime TEXT DEFAULT ' ',CompTime TEXT DEFAULT ' '," +
             "Coordinate TEXT DEFAULT ' ',isComp TEXT DEFAULT ' ',Remark TEXT DEFAULT ' ',SN TEXT DEFAULT ' '," +
-            "Signature TEXT DEFAULT ' ',ExpDate TEXT DEFAULT ' ',CompDate TEXT DEFAULT ' ')";
+            "Signature TEXT DEFAULT ' ',ExpDate TEXT DEFAULT ' ',CompDate TEXT DEFAULT ' ',ImpDate TEXT)";
     String CREATE_TABLE3 = "CREATE TABLE if not exists email_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement,ReplyMail TEXT)";
     //資料庫結構=====================
@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL(CREATE_TABLE3);
        // Cursor cursor = db.rawQuery("select * from reply_tb where NoticeDate<date('now')" , null);
        // if (cursor.getCount() != 0) {
-            //db.execSQL("delete  from  reply_tb where NoticeDate<date('now')");
-            db.execSQL("delete  from  notice_tb where ImpDate<date('now')");
+        db.execSQL("delete  from  reply_tb where ImpDate<date('now')");
+        db.execSQL("delete  from  notice_tb where ImpDate<date('now')");
         //}
 
         //DB
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                                  item[0]+"','"+item[1]+"','"+item[2]+"','"+
                                  item[3]+"','"+item[4]+"','"+item[5]+
                                 "',datetime('now','localtime'),date('now'))");
-                     db.execSQL("insert into reply_tb(TaskNo) values('"+ item[0]+"')");
+                       db.execSQL("insert into reply_tb(TaskNo,ImpDate) values('"+ item[0]+"',date('now'))");
 
                    }
                    flag_1=0;

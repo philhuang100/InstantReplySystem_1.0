@@ -38,6 +38,8 @@
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="text/csv" />
             </intent-filter>
+
+
             <!--
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -53,6 +55,7 @@
         <activity android:name=".ReplyActivity" />
         <activity android:name=".CheckInActivity" />
         <activity android:name=".ScheduleActivity" />
+
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.

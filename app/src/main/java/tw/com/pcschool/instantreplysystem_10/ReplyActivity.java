@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,7 +41,7 @@ public class ReplyActivity extends AppCompatActivity {
     String ckComp = "";
     String tono = "";
     String comptime = "";
-    String DBName="irs_db10.db";
+    String DBName="irs_db20.db";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,11 +98,16 @@ public class ReplyActivity extends AppCompatActivity {
         }
     }
     public void barcode_click(View v) {
-        Intent it = new Intent(ReplyActivity.this, BarcodeActivity.class);
-        startActivity(it);
+        // Intent it = new Intent(ReplyActivity.this, BarcodeActivity.class);
+        // startActivity(it);
+        Toast.makeText(ReplyActivity.this,"此為專業版功能，請洽本公司", Toast.LENGTH_LONG).show();
     }
-    public void signlick(View v) {
-        Intent it = new Intent(ReplyActivity.this, signActivity.class);
+    public void sign_click(View v) {
+        // Intent it = new Intent(ReplyActivity.this, signActivity.class);
+        // startActivity(it);
+        Toast.makeText(ReplyActivity.this,"此為專業版功能，請洽本公司", Toast.LENGTH_LONG).show();
+        Intent it = new Intent();
+        it.setAction(Intent.ACTION_VIEW);
         startActivity(it);
     }
     public void end_click(View v) {
