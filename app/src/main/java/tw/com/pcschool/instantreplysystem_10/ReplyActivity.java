@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -21,10 +23,12 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -48,6 +52,30 @@ public class ReplyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reply);
         et_Remark = (EditText) findViewById(R.id.R_Remark);
         st_Remark = et_Remark.getText().toString();
+       ImageView iv = (ImageView) findViewById(R.id.R_Signature);
+       //iv.setImageBitmap(null);
+       //iv.destroyDrawingCache();
+//======================
+/*
+        File root = Environment.getExternalStorageDirectory();
+        String pathToMyAttachedFile = "irs/"+tono+ ".jpg";
+        File file = new File(root, pathToMyAttachedFile);
+        if (!file.exists() || !file.canRead()) {
+            return;
+        }
+        Log.d("SSS","AA"+tono);
+        //========================
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        Bitmap bm = BitmapFactory.decodeFile(file.toString(), options);
+        iv.setImageBitmap(bm);
+        */
+        //=====================
+        //ByteArrayOutputStream os = new ByteArrayOutputStream();
+        //bitmap.compress(Bitmap.CompressFormat.JPEG,100,os);
+        //Bitmap bm = BitmapFactory.decodeFile(file);
+        //=======================
+
        /*CheckBox cb = (CheckBox) findViewById(R.id.R_isComp);
         //=======================
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
@@ -89,6 +117,18 @@ public class ReplyActivity extends AppCompatActivity {
             comptime = sDateFormat.format(new java.util.Date());
             et_comptime.setText(comptime);
             tono = cursor.getString(cursor.getColumnIndex("TaskNo"));
+            //=====================
+            File root = Environment.getExternalStorageDirectory();
+            String pathToMyAttachedFile = "irs/"+tono+ ".jpg";
+            File file = new File(root, pathToMyAttachedFile);
+            if (!file.exists() || !file.canRead()) {
+                return;
+            }
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
+            Bitmap bm = BitmapFactory.decodeFile(file.toString(), options);
+            iv.setImageBitmap(bm);
+            //======================
         }else{
             Toast.makeText(ReplyActivity.this,"本日已無待作業案件", Toast.LENGTH_SHORT).show();
             db.close();
@@ -100,10 +140,9 @@ public class ReplyActivity extends AppCompatActivity {
     public void barcode_click(View v) {
         //=======================
         Intent intent = new Intent("MainActivity.intent.action.Launch");
-        Bundle extras=new Bundle();
-        extras.putString("TN",tono);
-
-
+       // Bundle extras=new Bundle();
+       // extras.putString("TN",tono);
+       intent.putExtra("TN",tono);
         startActivity(intent);
         //=================
         // Intent it = new Intent(ReplyActivity.this, BarcodeActivity.class);
@@ -143,8 +182,9 @@ public class ReplyActivity extends AppCompatActivity {
        // startActivity(it);
         //===========================
         Intent intent = new Intent("MainActivity2.intent.action.Launch");
-        Bundle extras=new Bundle();
-        extras.putString("TN",tono);
+        //Bundle extras=new Bundle();
+        //extras.putString("TN",tono);
+        intent.putExtra("TN",tono);
         startActivity(intent);
         //=================
     }
