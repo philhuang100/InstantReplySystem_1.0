@@ -43,7 +43,7 @@ import java.io.FileOutputStream;
 public class MainActivity extends AppCompatActivity {
     String replymail="";//儲存EMAIL變數
     SQLiteDatabase db = null;
-    String DBName="irs_db20.db";
+    String DBName="irs_db21.db";
     //資料庫結構=====================
     String CREATE_TABLE1 = "CREATE TABLE if not exists notice_tb" +
             "(_id INTEGER PRIMARY KEY autoincrement," +
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                                  item[0]+"','"+item[1]+"','"+item[2]+"','"+
                                  item[3]+"','"+item[4]+"','"+item[5]+
                                 "',datetime('now','localtime'),date('now'))");
-                       db.execSQL("insert into reply_tb(TaskNo,ImpDate) values('"+ item[0]+"',date('now'))");
+                       db.execSQL("insert into reply_tb(TaskNo,SN,ImpDate) values('"+ item[0]+"','',date('now'))");
 
                    }
                    flag_1=0;

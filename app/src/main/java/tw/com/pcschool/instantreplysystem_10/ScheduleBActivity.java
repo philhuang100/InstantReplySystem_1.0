@@ -16,7 +16,7 @@ public class ScheduleBActivity extends AppCompatActivity {
     ListView lv3;
     ArrayList<SQLiteDB> mylist;
     DBAdapterActivity adapter;
-    String DBName="irs_db20.db";
+    String DBName="irs_db21.db";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

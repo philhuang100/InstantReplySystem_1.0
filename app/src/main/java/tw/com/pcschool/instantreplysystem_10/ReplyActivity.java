@@ -45,7 +45,11 @@ public class ReplyActivity extends AppCompatActivity {
     String ckComp = "";
     String tono = "";
     String comptime = "";
-    String DBName="irs_db20.db";
+    String bcsn = "";
+    String tno = "";
+    EditText et_SN;
+
+    String DBName="irs_db21.db";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,20 @@ public class ReplyActivity extends AppCompatActivity {
         et_Remark = (EditText) findViewById(R.id.R_Remark);
         st_Remark = et_Remark.getText().toString();
        ImageView iv = (ImageView) findViewById(R.id.R_Signature);
+       Intent it=getIntent();
+       bcsn=it.getStringExtra("BC");
+       tno=it.getStringExtra("TO");
+       db = openOrCreateDatabase(DBName, 0, null);
+       if(bcsn!="" && bcsn!=null) {
+           db.execSQL("update reply_tb set SN='" + bcsn + "' where TaskNo='" + tno + "'");
+           Cursor cs = db.rawQuery("select  SN from reply_tb where TaskNo='" + tno + "'", null);
+           if (cs.getCount() != 0) {
+               cs.moveToPosition(0);
+               et_SN = (EditText) findViewById(R.id.R_SN);
+               et_SN.setText(cs.getString(cs.getColumnIndex("SN")));
+           }
+       }
+
        //iv.setImageBitmap(null);
        //iv.destroyDrawingCache();
 //======================
@@ -90,9 +108,9 @@ public class ReplyActivity extends AppCompatActivity {
         });
         */
 
-        db = openOrCreateDatabase(DBName, 0, null);
+       // db = openOrCreateDatabase(DBName, 0, null);
         Cursor cursor = db.rawQuery("select  notice_tb.TaskNo,ShopName,ArrivalTime,Coordinate,Addr," +
-                "Tel,ContactPerson from notice_tb,reply_tb " +
+                "Tel,ContactPerson,SN from notice_tb,reply_tb " +
                 "where notice_tb.TaskNo=reply_tb.TaskNo " +
                 "and (CompTime=' ' or CompTime is NULL) order by notice_tb._id ", null);
                 // "and (CompTime='' or CompTime is NULL) order by notice_tb._id ", null);
@@ -110,13 +128,18 @@ public class ReplyActivity extends AppCompatActivity {
             et_tel.setText(cursor.getString(cursor.getColumnIndex("Tel")));
             TextView et_arrivalTime = (TextView) findViewById(R.id.R_ArrivalTime);
             et_arrivalTime.setText(cursor.getString(cursor.getColumnIndex("ArrivalTime")));
-
+            et_SN = (EditText) findViewById(R.id.R_SN);
+            et_SN.setText(cursor.getString(cursor.getColumnIndex("SN")));
 
             TextView et_comptime = (TextView) findViewById(R.id.R_CompTime);
             SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             comptime = sDateFormat.format(new java.util.Date());
             et_comptime.setText(comptime);
             tono = cursor.getString(cursor.getColumnIndex("TaskNo"));
+            //=========================================================
+            //et_SN = (EditText) findViewById(R.id.R_SN);
+           // et_SN.setText(cursor.getString(cursor.getColumnIndex("SN")));
+           // db.execSQL("update reply_tb set SN='"+bcsn+"' where TaskNo='"+tono+"'");
             //=====================
             File root = Environment.getExternalStorageDirectory();
             String pathToMyAttachedFile = "irs/"+tono+ ".jpg";
@@ -129,6 +152,7 @@ public class ReplyActivity extends AppCompatActivity {
             Bitmap bm = BitmapFactory.decodeFile(file.toString(), options);
             iv.setImageBitmap(bm);
             //======================
+
         }else{
             Toast.makeText(ReplyActivity.this,"本日已無待作業案件", Toast.LENGTH_SHORT).show();
             db.close();
@@ -144,6 +168,7 @@ public class ReplyActivity extends AppCompatActivity {
        // extras.putString("TN",tono);
        intent.putExtra("TN",tono);
         startActivity(intent);
+        ReplyActivity.this.finish();
         //=================
         // Intent it = new Intent(ReplyActivity.this, BarcodeActivity.class);
         // startActivity(it);
@@ -186,6 +211,7 @@ public class ReplyActivity extends AppCompatActivity {
         //extras.putString("TN",tono);
         intent.putExtra("TN",tono);
         startActivity(intent);
+        ReplyActivity.this.finish();
         //=================
     }
     public void end_click(View v) {
@@ -255,7 +281,8 @@ public class ReplyActivity extends AppCompatActivity {
             mailadd = cursor.getString(cursor.getColumnIndex("ReplyMail"));
         }
         Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
+       // intent.setAction(Intent.ACTION_SEND);
+        intent.setAction(Intent.ACTION_SEND_MULTIPLE);
         String[] to = {mailadd};
         //String[] to = {"phil.huang100@gmail.com"};
         intent.putExtra(Intent.EXTRA_EMAIL, to);
@@ -265,16 +292,27 @@ public class ReplyActivity extends AppCompatActivity {
                                              "完成時間："+comptime+"\n"+
                                              "作業說明："+st_Remark);
             //==================
-            File root = Environment.getExternalStorageDirectory();
-            String pathToMyAttachedFile = "irs/"+tono+ ".csv";
-            File file = new File(root, pathToMyAttachedFile);
-             if (!file.exists() || !file.canRead()) {
-                return;
-            }
-            Uri uri = Uri.fromFile(file);
-            intent.putExtra(Intent.EXTRA_STREAM, uri);
-            //==================
-         intent.setType("text/csv");
+        ArrayList<Uri> uris = new ArrayList<Uri>();
+        File root = Environment.getExternalStorageDirectory();
+        String pathToMyAttachedFile = "irs/"+tono+ ".csv";
+        File file = new File(root, pathToMyAttachedFile);
+        if (!file.exists() || !file.canRead()) {
+             return;
+         }
+        intent.setType("text/csv");
+        Uri uri = Uri.fromFile(file);
+        uris.add(uri);
+        //==============================
+        String pathToMyAttachedFile2 = "irs/"+tono+ ".jpg";
+        File file2 = new File(root, pathToMyAttachedFile2);
+        if (!file2.exists() || !file2.canRead()) {
+            return;
+        }
+        intent.setType("image/jpeg");
+        Uri uri2 = Uri.fromFile(file2);
+        uris.add(uri2);
+       //==================
+        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
         startActivity(Intent.createChooser(intent, "Pick an Email provider"));
         Toast.makeText(ReplyActivity.this,"已啟動郵件，準備傳送", Toast.LENGTH_SHORT).show();
 
