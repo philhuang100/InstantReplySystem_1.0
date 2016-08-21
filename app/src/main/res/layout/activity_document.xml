@@ -20,5 +20,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#98f8e0" />
+        android:autoLink="email"
+        android:autoText="true"
+        android:textColor="#756b02" />
 </RelativeLayout>
